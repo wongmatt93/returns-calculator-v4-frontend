@@ -1,11 +1,9 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Main from "./components/Main";
 import StockDetails from "./components/StockDetails";
-import { useContext } from "react";
-import AuthContext from "./context/AuthContext";
 import LandingPage from "./components/LandingPage";
+import Overview from "./components/Overview";
 
 function App() {
   return (
@@ -14,7 +12,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/overview" element={<Main />} />
+          <Route path="/overview" element={<Overview />} />
           <Route path="/stocks/:ticker/details" element={<StockDetails />} />
         </Routes>
       </Router>

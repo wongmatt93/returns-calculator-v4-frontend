@@ -1,11 +1,11 @@
 import AddStockForm from "./AddStockForm";
-import "./Main.css";
+import "./Overview.css";
 import StockTable from "./StockTable";
 import Totals from "./Totals";
 
-const Main = () => {
+const Overview = () => {
   return (
-    <main className="Main">
+    <main className="Overview">
       <Totals />
       <AddStockForm />
       <StockTable />
@@ -13,4 +13,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Overview;

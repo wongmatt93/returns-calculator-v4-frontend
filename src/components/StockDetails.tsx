@@ -11,6 +11,7 @@ import {
   getStockQuantity,
 } from "../services/stockFunctions";
 import AddDividendForm from "./AddDividendForm";
+import AddOpenOptionsForm from "./AddOpenOptionsForm";
 import BuySharesForm from "./BuySharesForm";
 import DividendTable from "./DividendTable";
 import SellSharesForm from "./SellSharesForm";
@@ -19,16 +20,17 @@ import "./StockDetails.css";
 const StockDetails = () => {
   const { stocks } = useContext(AuthContext);
   const ticker: string | undefined = useParams().ticker;
-  const stock: Stock | undefined = stocks.find(
-    (stock) => stock.ticker === ticker
-  );
+  const [stock, setStock] = useState<Stock | undefined>(undefined);
   const [stockInfo, setStockInfo] = useState<AlphaAdvantageResponse | null>(
     null
   );
 
   useEffect(() => {
-    stock && getStockInfo(ticker!).then((response) => setStockInfo(response));
-  }, [stock]);
+    if (ticker) {
+      setStock(stocks.find((stock) => stock.ticker === ticker));
+      getStockInfo(ticker).then((response) => setStockInfo(response));
+    }
+  }, [ticker, stocks]);
 
   return (
     <main className="StockDetails">
@@ -40,6 +42,7 @@ const StockDetails = () => {
           <div className="button-container">
             <BuySharesForm ticker={ticker!} />
             <SellSharesForm stock={stock} />
+            <AddOpenOptionsForm />
             <AddDividendForm stock={stock} />
           </div>
           <table className="individual-stock-table">

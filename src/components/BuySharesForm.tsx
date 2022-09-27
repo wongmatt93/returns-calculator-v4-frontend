@@ -1,7 +1,6 @@
 import "./BuySharesForm.css";
 import Modal from "react-modal";
 import { FormEvent, useContext, useState } from "react";
-import { buyShares } from "../services/userProfileService";
 import AuthContext from "../context/AuthContext";
 
 Modal.setAppElement("#root");
@@ -11,7 +10,7 @@ interface Props {
 }
 
 const BuySharesForm = ({ ticker }: Props) => {
-  const { user } = useContext(AuthContext);
+  const { user, buyShares } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(0);
   const [cost, setCost] = useState<number>(0);

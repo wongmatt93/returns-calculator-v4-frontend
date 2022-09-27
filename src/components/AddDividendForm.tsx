@@ -3,7 +3,6 @@ import Stock from "../models/Stock";
 import "./AddDividendForm.css";
 import Modal from "react-modal";
 import { getStockQuantity } from "../services/stockFunctions";
-import { addDividend } from "../services/userProfileService";
 import AuthContext from "../context/AuthContext";
 
 Modal.setAppElement("#root");
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const AddDividendForm = ({ stock }: Props) => {
-  const { user } = useContext(AuthContext);
+  const { user, addDividend } = useContext(AuthContext);
   const [amount, setAmount] = useState<number>(0);
   const [date, setDate] = useState<string>("");
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);

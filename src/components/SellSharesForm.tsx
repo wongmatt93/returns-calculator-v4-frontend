@@ -1,6 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import { sellShares } from "../services/userProfileService";
 import Modal from "react-modal";
 import "./SellSharesForm.css";
 import Stock from "../models/Stock";
@@ -11,7 +10,7 @@ interface Props {
 }
 
 const SellSharesForm = ({ stock }: Props) => {
-  const { user } = useContext(AuthContext);
+  const { user, sellShares } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(0);
   const [cost, setCost] = useState<number>(0);
@@ -22,12 +21,16 @@ const SellSharesForm = ({ stock }: Props) => {
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    let profit: number = 0;
-    const remainder: number =
-      (quantity / getStockQuantity(stock)) * getCostBasis(stock);
-    profit = cost - remainder;
-    sellShares(user!.uid, stock.ticker, { quantity, cost, profit, date });
-    setModalIsOpen(false);
+    if (quantity <= getStockQuantity(stock)) {
+      let profit: number = 0;
+      const remainder: number =
+        (quantity / getStockQuantity(stock)) * getCostBasis(stock);
+      profit = cost - remainder;
+      sellShares(user!.uid, stock.ticker, { quantity, cost, profit, date });
+      setModalIsOpen(false);
+    } else {
+      alert("You cannot sell more than you own");
+    }
   };
   return (
     <div className="SellSharesForm">

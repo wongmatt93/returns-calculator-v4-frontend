@@ -4,12 +4,13 @@ import AuthContext from "../context/AuthContext";
 import "./LandingPage.css";
 
 const LandingPage = () => {
-  const { currentUserProfile } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    currentUserProfile && navigate("/overview");
-  }, [currentUserProfile]);
+    user && navigate("/overview");
+  }, [user]);
+
   return <div className="LandingPage">LandingPage works</div>;
 };
 
