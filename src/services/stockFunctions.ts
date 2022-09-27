@@ -15,17 +15,13 @@ export const getSaleCost = (stock: Stock): number =>
 export const getStockQuantity = (stock: Stock): number =>
   getPurchaseQuantity(stock) - getSaleQuantity(stock);
 
-export const getCostBasis = (stock: Stock): number => {
-  if (getSaleQuantity(stock)) {
-    return (
-      getPurchaseCost(stock) -
+export const getCostBasis = (stock: Stock): number =>
+  getSaleQuantity(stock)
+    ? getPurchaseCost(stock) -
       (getPurchaseCost(stock) / getPurchaseQuantity(stock)) *
         getSaleQuantity(stock)
-    );
-  } else {
-    return getPurchaseCost(stock);
-  }
-};
+    : getPurchaseCost(stock);
+
 export const getSaleReturns = (stock: Stock): number =>
   stock.stockSales.reduce((pv, cv) => cv.profit + pv, 0);
 

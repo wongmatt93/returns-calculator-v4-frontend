@@ -3,12 +3,18 @@ import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import UserProfile from "../models/UserProfile";
 import {
+  addNewDividend,
   addNewProfile,
   addNewStock,
+  buyNewShares,
   getAllProfiles,
+  sellNewShares,
 } from "../services/userProfileService";
 import { User } from "firebase/auth";
 import Stock from "../models/Stock";
+import StockPurchase from "../models/StockPurchase";
+import StockSale from "../models/StockSale";
+import Dividend from "../models/Dividend";
 
 interface Props {
   children: ReactNode;
@@ -22,10 +28,33 @@ const AuthContextProvider = ({ children }: Props) => {
   >(undefined);
   const [stocks, setStocks] = useState<Stock[]>([]);
 
-  const addStock = (stock: Stock, uid: string) =>
-    addNewStock(stock, uid).then(() =>
-      getAllProfiles().then((response) => setProfiles(response))
-    );
+  const getAndSetProfiles = () => {
+    getAllProfiles().then((response) => setProfiles(response));
+  };
+
+  const addStock = (stock: Stock, uid: string): Promise<void> =>
+    addNewStock(stock, uid).then(() => getAndSetProfiles());
+
+  const buyShares = (
+    uid: string,
+    ticker: string,
+    purchase: StockPurchase
+  ): Promise<void> =>
+    buyNewShares(uid, ticker, purchase).then(() => getAndSetProfiles());
+
+  const sellShares = (
+    uid: string,
+    ticker: string,
+    sale: StockSale
+  ): Promise<void> =>
+    sellNewShares(uid, ticker, sale).then(() => getAndSetProfiles());
+
+  const addDividend = (
+    uid: string,
+    ticker: string,
+    dividend: Dividend
+  ): Promise<void> =>
+    addNewDividend(uid, ticker, dividend).then(() => getAndSetProfiles());
 
   useEffect(() => {
     // useEffect to only register once at start
@@ -35,7 +64,7 @@ const AuthContextProvider = ({ children }: Props) => {
   }, []);
 
   useEffect(() => {
-    user && getAllProfiles().then((response) => setProfiles(response));
+    user && getAndSetProfiles();
   }, [user]);
 
   useEffect(() => {
@@ -64,7 +93,15 @@ const AuthContextProvider = ({ children }: Props) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, currentUserProfile, stocks, addStock }}
+      value={{
+        user,
+        currentUserProfile,
+        stocks,
+        addStock,
+        buyShares,
+        sellShares,
+        addDividend,
+      }}
     >
       {children}
     </AuthContext.Provider>

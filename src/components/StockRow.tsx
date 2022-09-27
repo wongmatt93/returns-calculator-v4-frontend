@@ -21,7 +21,7 @@ const StockRow = ({ stock }: Props) => {
       <td>{formatMoney(getCostBasis(stock))}</td>
       <td>{formatMoney(getCashReturns(stock))}</td>
       <td>
-        {getCashReturns(stock)
+        {getCashReturns(stock) && getCostBasis(stock)
           ? formatPercent(getCashReturns(stock), getCostBasis(stock))
           : "N/A"}
       </td>

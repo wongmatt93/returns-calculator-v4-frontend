@@ -18,7 +18,10 @@ const AddStockForm = () => {
             ticker: newTicker,
             stockPurchases: [],
             stockSales: [],
-            options: [],
+            buyToOpenOptions: [],
+            buyToCloseOptions: [],
+            sellToOpenOptions: [],
+            sellToCloseOptions: [],
             dividends: [],
           },
           user.uid

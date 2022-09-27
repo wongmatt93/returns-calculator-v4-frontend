@@ -21,7 +21,7 @@ export const addNewProfile = async (
 export const addNewStock = async (stock: Stock, uid: string): Promise<Stock> =>
   (await axios.put(`${baseURL}/user_profiles/stocks/${uid}`, stock)).data;
 
-export const buyShares = async (
+export const buyNewShares = async (
   uid: string,
   ticker: string,
   purchase: StockPurchase
@@ -33,7 +33,7 @@ export const buyShares = async (
     )
   ).data;
 
-export const sellShares = async (
+export const sellNewShares = async (
   uid: string,
   ticker: string,
   sale: StockSale
@@ -45,7 +45,55 @@ export const sellShares = async (
     )
   ).data;
 
-export const addDividend = async (
+export const addNewDividend = async (
+  uid: string,
+  ticker: string,
+  dividend: Dividend
+): Promise<StockPurchase> =>
+  (
+    await axios.put(
+      `${baseURL}/user_profiles/stocks/dividend/${uid}/${ticker}`,
+      dividend
+    )
+  ).data;
+
+export const addNewBTO = async (
+  uid: string,
+  ticker: string,
+  dividend: Dividend
+): Promise<StockPurchase> =>
+  (
+    await axios.put(
+      `${baseURL}/user_profiles/stocks/dividend/${uid}/${ticker}`,
+      dividend
+    )
+  ).data;
+
+export const addNewBTC = async (
+  uid: string,
+  ticker: string,
+  dividend: Dividend
+): Promise<StockPurchase> =>
+  (
+    await axios.put(
+      `${baseURL}/user_profiles/stocks/dividend/${uid}/${ticker}`,
+      dividend
+    )
+  ).data;
+
+export const addNewSTO = async (
+  uid: string,
+  ticker: string,
+  dividend: Dividend
+): Promise<StockPurchase> =>
+  (
+    await axios.put(
+      `${baseURL}/user_profiles/stocks/dividend/${uid}/${ticker}`,
+      dividend
+    )
+  ).data;
+
+export const addNewSTC = async (
   uid: string,
   ticker: string,
   dividend: Dividend
