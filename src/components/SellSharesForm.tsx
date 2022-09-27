@@ -3,7 +3,11 @@ import AuthContext from "../context/AuthContext";
 import Modal from "react-modal";
 import "./SellSharesForm.css";
 import Stock from "../models/Stock";
-import { getCostBasis, getStockQuantity } from "../services/stockFunctions";
+import {
+  getCostBasis,
+  getSharesCommittedToOptions,
+  getStockQuantity,
+} from "../services/stockFunctions";
 
 interface Props {
   stock: Stock;
@@ -21,20 +25,32 @@ const SellSharesForm = ({ stock }: Props) => {
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    if (quantity <= getStockQuantity(stock)) {
+    if (quantity > getStockQuantity(stock)) {
+      alert("You cannot sell more shares than you own");
+    } else if (
+      quantity >
+      getStockQuantity(stock) - getSharesCommittedToOptions(stock)
+    ) {
+      alert(
+        "You cannot sell some of these shares because they are committed to your open options positions"
+      );
+    } else {
       let profit: number = 0;
       const remainder: number =
         (quantity / getStockQuantity(stock)) * getCostBasis(stock);
       profit = cost - remainder;
       sellShares(user!.uid, stock.ticker, { quantity, cost, profit, date });
       setModalIsOpen(false);
-    } else {
-      alert("You cannot sell more than you own");
     }
   };
   return (
     <div className="SellSharesForm">
-      <button onClick={openModal} disabled={!getStockQuantity(stock)}>
+      <button
+        onClick={openModal}
+        disabled={
+          !(getStockQuantity(stock) - getSharesCommittedToOptions(stock))
+        }
+      >
         Sell Shares
       </button>
       <Modal

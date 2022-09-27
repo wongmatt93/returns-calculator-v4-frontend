@@ -5,6 +5,7 @@ import "./StockTable.css";
 
 const StockTable = () => {
   const { stocks } = useContext(AuthContext);
+  console.log(stocks);
 
   return (
     <table className="StockTable">

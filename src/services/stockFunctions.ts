@@ -1,3 +1,5 @@
+import BuyToOpen from "../models/BuyToOpen";
+import SellToOpen from "../models/SellToOpen";
 import Stock from "../models/Stock";
 
 const getPurchaseQuantity = (stock: Stock): number =>
@@ -30,3 +32,13 @@ export const getDividendReturns = (stock: Stock): number =>
 
 export const getCashReturns = (stock: Stock): number =>
   getSaleReturns(stock) + getDividendReturns(stock);
+
+export const getSharesCommittedToOptions = (stock: Stock): number => {
+  const openBTOPut: BuyToOpen[] = stock.buyToOpenOptions.filter(
+    (item) => item.open && item.callPut === "P"
+  );
+  const openSTOCall: SellToOpen[] = stock.sellToOpenOptions.filter(
+    (item) => item.open && item.callPut === "C"
+  );
+  return (openBTOPut.length + openSTOCall.length) * 100;
+};
