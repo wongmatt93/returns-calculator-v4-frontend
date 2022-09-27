@@ -1,5 +1,9 @@
 import axios from "axios";
+import BuyToClose from "../models/BuyToClose";
+import BuyToOpen from "../models/BuyToOpen";
 import Dividend from "../models/Dividend";
+import SellToClose from "../models/SellToClose";
+import SellToOpen from "../models/SellToOpen";
 import Stock from "../models/Stock";
 import StockPurchase from "../models/StockPurchase";
 import StockSale from "../models/StockSale";
@@ -60,47 +64,31 @@ export const addNewDividend = async (
 export const addNewBTO = async (
   uid: string,
   ticker: string,
-  dividend: Dividend
+  bto: BuyToOpen
 ): Promise<StockPurchase> =>
-  (
-    await axios.put(
-      `${baseURL}/user_profiles/stocks/dividend/${uid}/${ticker}`,
-      dividend
-    )
-  ).data;
+  (await axios.put(`${baseURL}/user_profiles/stocks/bto/${uid}/${ticker}`, bto))
+    .data;
 
 export const addNewBTC = async (
   uid: string,
   ticker: string,
-  dividend: Dividend
+  btc: BuyToClose
 ): Promise<StockPurchase> =>
-  (
-    await axios.put(
-      `${baseURL}/user_profiles/stocks/dividend/${uid}/${ticker}`,
-      dividend
-    )
-  ).data;
+  (await axios.put(`${baseURL}/user_profiles/stocks/btc/${uid}/${ticker}`, btc))
+    .data;
 
 export const addNewSTO = async (
   uid: string,
   ticker: string,
-  dividend: Dividend
+  sto: SellToOpen
 ): Promise<StockPurchase> =>
-  (
-    await axios.put(
-      `${baseURL}/user_profiles/stocks/dividend/${uid}/${ticker}`,
-      dividend
-    )
-  ).data;
+  (await axios.put(`${baseURL}/user_profiles/stocks/sto/${uid}/${ticker}`, sto))
+    .data;
 
 export const addNewSTC = async (
   uid: string,
   ticker: string,
-  dividend: Dividend
+  stc: SellToClose
 ): Promise<StockPurchase> =>
-  (
-    await axios.put(
-      `${baseURL}/user_profiles/stocks/dividend/${uid}/${ticker}`,
-      dividend
-    )
-  ).data;
+  (await axios.put(`${baseURL}/user_profiles/stocks/stc/${uid}/${ticker}`, stc))
+    .data;

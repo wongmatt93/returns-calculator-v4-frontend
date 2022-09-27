@@ -42,7 +42,7 @@ const StockDetails = () => {
           <div className="button-container">
             <BuySharesForm ticker={ticker!} />
             <SellSharesForm stock={stock} />
-            <AddOpenOptionsForm />
+            <AddOpenOptionsForm stock={stock} />
             <AddDividendForm stock={stock} />
           </div>
           <table className="individual-stock-table">

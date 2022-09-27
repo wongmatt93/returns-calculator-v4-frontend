@@ -3,8 +3,10 @@ import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
 import UserProfile from "../models/UserProfile";
 import {
+  addNewBTO,
   addNewDividend,
   addNewProfile,
+  addNewSTO,
   addNewStock,
   buyNewShares,
   getAllProfiles,
@@ -15,6 +17,8 @@ import Stock from "../models/Stock";
 import StockPurchase from "../models/StockPurchase";
 import StockSale from "../models/StockSale";
 import Dividend from "../models/Dividend";
+import BuyToOpen from "../models/BuyToOpen";
+import SellToOpen from "../models/SellToOpen";
 
 interface Props {
   children: ReactNode;
@@ -55,6 +59,16 @@ const AuthContextProvider = ({ children }: Props) => {
     dividend: Dividend
   ): Promise<void> =>
     addNewDividend(uid, ticker, dividend).then(() => getAndSetProfiles());
+
+  const addBTO = (uid: string, ticker: string, bto: BuyToOpen): Promise<void> =>
+    addNewBTO(uid, ticker, bto).then(() => getAndSetProfiles());
+
+  const addSTO = (
+    uid: string,
+    ticker: string,
+    sto: SellToOpen
+  ): Promise<void> =>
+    addNewSTO(uid, ticker, sto).then(() => getAndSetProfiles());
 
   useEffect(() => {
     // useEffect to only register once at start
@@ -101,6 +115,8 @@ const AuthContextProvider = ({ children }: Props) => {
         buyShares,
         sellShares,
         addDividend,
+        addBTO,
+        addSTO,
       }}
     >
       {children}

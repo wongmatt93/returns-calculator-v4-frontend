@@ -1,14 +1,25 @@
 import React, { FormEvent } from "react";
 import { useContext, useState } from "react";
 import Modal from "react-modal";
+import AuthContext from "../context/AuthContext";
+import Stock from "../models/Stock";
+import {
+  getSharesCommittedToOptions,
+  getStockQuantity,
+} from "../services/stockFunctions";
 import "./AddOpenOptionsForm.css";
 
 Modal.setAppElement("#root");
 
-const AddOpenOptionsForm = () => {
+interface Props {
+  stock: Stock;
+}
+
+const AddOpenOptionsForm = ({ stock }: Props) => {
+  const { user, addBTO, addSTO } = useContext(AuthContext);
   const [date, setDate] = useState<string>("");
   const [type, setType] = useState<string>("bto");
-  const [callPut, setCallPut] = useState<string>("c");
+  const [callPut, setCallPut] = useState<string>("C");
   const [strike, setStrike] = useState<string>("");
   const [premium, setPremium] = useState<string>("");
   const [expiration, setExpiration] = useState<string>("");
@@ -20,8 +31,43 @@ const AddOpenOptionsForm = () => {
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
+    const stockQuantity = getStockQuantity(stock);
     if (type === "bto") {
+      if (
+        quantity * 100 > stockQuantity - getSharesCommittedToOptions(stock) &&
+        callPut === "P"
+      ) {
+        alert("You don't have enough shares");
+      } else {
+        for (let i = 0; i < quantity; i++) {
+          addBTO(user!.uid, stock.ticker, {
+            transactionDate: date,
+            callPut,
+            strike: parseInt(strike),
+            expirationDate: expiration,
+            premium: parseInt(premium),
+            open: true,
+          });
+        }
+      }
     } else {
+      if (
+        quantity * 100 > stockQuantity - getSharesCommittedToOptions(stock) &&
+        callPut === "C"
+      ) {
+        alert("You don't have enough shares");
+      } else {
+        for (let i = 0; i < quantity; i++) {
+          addSTO(user!.uid, stock.ticker, {
+            transactionDate: date,
+            callPut,
+            strike: parseInt(strike),
+            expirationDate: expiration,
+            premium: parseInt(premium),
+            open: true,
+          });
+        }
+      }
     }
     setModalIsOpen(false);
   };
@@ -66,8 +112,8 @@ const AddOpenOptionsForm = () => {
               value={callPut}
               onChange={(e) => setCallPut(e.target.value)}
             >
-              <option value="c">Call</option>
-              <option value="p">Put</option>
+              <option value="C">Call</option>
+              <option value="P">Put</option>
             </select>
           </div>
           <div className="add-open-options-inputs">
