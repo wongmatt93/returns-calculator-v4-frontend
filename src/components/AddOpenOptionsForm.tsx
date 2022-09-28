@@ -18,7 +18,7 @@ interface Props {
 const AddOpenOptionsForm = ({ stock }: Props) => {
   const { user, addBTO, addSTO } = useContext(AuthContext);
   const [date, setDate] = useState<string>("");
-  const [type, setType] = useState<string>("bto");
+  const [type, setType] = useState<string>("BTO");
   const [callPut, setCallPut] = useState<string>("C");
   const [strike, setStrike] = useState<string>("");
   const [premium, setPremium] = useState<string>("");
@@ -32,7 +32,7 @@ const AddOpenOptionsForm = ({ stock }: Props) => {
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     const stockQuantity = getStockQuantity(stock);
-    if (type === "bto") {
+    if (type === "BTO") {
       if (
         quantity * 100 > stockQuantity - getSharesCommittedToOptions(stock) &&
         callPut === "P"
@@ -41,6 +41,7 @@ const AddOpenOptionsForm = ({ stock }: Props) => {
       } else {
         for (let i = 0; i < quantity; i++) {
           addBTO(user!.uid, stock.ticker, {
+            type,
             transactionDate: date,
             callPut,
             strike: parseInt(strike),
@@ -59,6 +60,7 @@ const AddOpenOptionsForm = ({ stock }: Props) => {
       } else {
         for (let i = 0; i < quantity; i++) {
           addSTO(user!.uid, stock.ticker, {
+            type,
             transactionDate: date,
             callPut,
             strike: parseInt(strike),
@@ -100,8 +102,8 @@ const AddOpenOptionsForm = ({ stock }: Props) => {
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
-              <option value="bto">Buy To Open</option>
-              <option value="sto">Sell To Open</option>
+              <option value="BTO">Buy To Open</option>
+              <option value="STO">Sell To Open</option>
             </select>
           </div>
           <div className="add-open-options-inputs">

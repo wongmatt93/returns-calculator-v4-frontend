@@ -8,12 +8,15 @@ import { formatMoney, formatPercent } from "../services/formatFunctions";
 import {
   getCashReturns,
   getCostBasis,
+  getOpenBTO,
+  getOpenSTO,
   getStockQuantity,
 } from "../services/stockFunctions";
 import AddDividendForm from "./AddDividendForm";
 import AddOpenOptionsForm from "./AddOpenOptionsForm";
 import BuySharesForm from "./BuySharesForm";
 import DividendTable from "./DividendTable";
+import OpenOptionsTable from "./OpenOptionsTable";
 import SellSharesForm from "./SellSharesForm";
 import "./StockDetails.css";
 
@@ -67,6 +70,10 @@ const StockDetails = () => {
               </tr>
             </tbody>
           </table>
+          <OpenOptionsTable
+            openBTO={getOpenBTO(stock.buyToOpenOptions)}
+            openSTO={getOpenSTO(stock.sellToOpenOptions)}
+          />
           <DividendTable dividends={stock.dividends} />
         </>
       )}

@@ -33,6 +33,12 @@ export const getDividendReturns = (stock: Stock): number =>
 export const getCashReturns = (stock: Stock): number =>
   getSaleReturns(stock) + getDividendReturns(stock);
 
+export const getOpenBTO = (bto: BuyToOpen[]): BuyToOpen[] =>
+  bto.filter((item) => item.open);
+
+export const getOpenSTO = (sto: SellToOpen[]): SellToOpen[] =>
+  sto.filter((item) => item.open);
+
 export const getSharesCommittedToOptions = (stock: Stock): number => {
   const openBTOPut: BuyToOpen[] = stock.buyToOpenOptions.filter(
     (item) => item.open && item.callPut === "P"
