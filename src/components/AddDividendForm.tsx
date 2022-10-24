@@ -13,7 +13,7 @@ interface Props {
 
 const AddDividendForm = ({ stock }: Props) => {
   const { user, addDividend } = useContext(AuthContext);
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
@@ -24,7 +24,7 @@ const AddDividendForm = ({ stock }: Props) => {
     e.preventDefault();
     if (getStockQuantity(stock)) {
       addDividend(user!.uid, stock.ticker, {
-        amount: amount,
+        amount: parseFloat(amount),
         date: date,
       });
       setModalIsOpen(false);
@@ -52,7 +52,7 @@ const AddDividendForm = ({ stock }: Props) => {
               name="amount"
               id="amount"
               value={amount}
-              onChange={(e) => setAmount(parseInt(e.target.value))}
+              onChange={(e) => setAmount(e.target.value)}
             />
           </div>
           <div className="dividend-inputs">

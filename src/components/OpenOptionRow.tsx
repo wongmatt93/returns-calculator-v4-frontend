@@ -1,5 +1,6 @@
 import OptionTableDisplay from "../models/OptionTableDisplay";
 import { formatMoney } from "../services/formatFunctions";
+import AddCloseOptionsForm from "./AddCloseOptionsForm";
 import "./OpenOptionRow.css";
 
 interface Props {
@@ -14,7 +15,9 @@ const OpenOptionRow = ({ option }: Props) => {
         option.callPut
       }`}</td>
       <td>{option.quantity}</td>
-      <td>Open</td>
+      <td>
+        <AddCloseOptionsForm optionDisplay={option} />
+      </td>
     </tr>
   );
 };

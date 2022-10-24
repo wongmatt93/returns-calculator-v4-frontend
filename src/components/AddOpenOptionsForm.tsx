@@ -44,9 +44,9 @@ const AddOpenOptionsForm = ({ stock }: Props) => {
             type,
             transactionDate: date,
             callPut,
-            strike: parseInt(strike),
+            strike: parseFloat(strike),
             expirationDate: expiration,
-            premium: parseInt(premium),
+            premium: parseFloat(premium),
             open: true,
           });
         }
@@ -63,9 +63,9 @@ const AddOpenOptionsForm = ({ stock }: Props) => {
             type,
             transactionDate: date,
             callPut,
-            strike: parseInt(strike),
+            strike: parseFloat(strike),
             expirationDate: expiration,
-            premium: parseInt(premium),
+            premium: parseFloat(premium),
             open: true,
           });
         }

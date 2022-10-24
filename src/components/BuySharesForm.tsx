@@ -12,8 +12,8 @@ interface Props {
 const BuySharesForm = ({ ticker }: Props) => {
   const { user, buyShares } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [quantity, setQuantity] = useState<number>(0);
-  const [cost, setCost] = useState<number>(0);
+  const [quantity, setQuantity] = useState<string>("");
+  const [cost, setCost] = useState<string>("");
   const [date, setDate] = useState<string>("");
 
   const openModal = (): void => setModalIsOpen(true);
@@ -21,7 +21,11 @@ const BuySharesForm = ({ ticker }: Props) => {
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    buyShares(user!.uid, ticker, { quantity, cost, date });
+    buyShares(user!.uid, ticker, {
+      quantity: parseFloat(quantity),
+      cost: parseFloat(cost),
+      date,
+    });
     setModalIsOpen(false);
   };
 
@@ -42,7 +46,7 @@ const BuySharesForm = ({ ticker }: Props) => {
               name="quantity"
               id="quantity"
               value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              onChange={(e) => setQuantity(e.target.value)}
             />
           </div>
           <div className="buy-shares-inputs">
@@ -52,7 +56,7 @@ const BuySharesForm = ({ ticker }: Props) => {
               name="cost"
               id="cost"
               value={cost}
-              onChange={(e) => setCost(parseInt(e.target.value))}
+              onChange={(e) => setCost(e.target.value)}
             />
           </div>
           <div className="buy-shares-inputs">

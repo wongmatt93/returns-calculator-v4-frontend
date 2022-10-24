@@ -72,10 +72,15 @@ export const addNewBTO = async (
 export const addNewBTC = async (
   uid: string,
   ticker: string,
-  btc: BuyToClose
+  btc: BuyToClose,
+  index: number
 ): Promise<StockPurchase> =>
-  (await axios.put(`${baseURL}/user_profiles/stocks/btc/${uid}/${ticker}`, btc))
-    .data;
+  (
+    await axios.put(
+      `${baseURL}/user_profiles/stocks/btc/${uid}/${ticker}/${index}`,
+      btc
+    )
+  ).data;
 
 export const addNewSTO = async (
   uid: string,

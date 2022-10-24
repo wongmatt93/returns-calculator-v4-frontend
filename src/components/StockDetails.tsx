@@ -8,8 +8,9 @@ import { formatMoney, formatPercent } from "../services/formatFunctions";
 import {
   getCashReturns,
   getCostBasis,
-  getOpenBTO,
-  getOpenSTO,
+  getOpenOptions,
+  getOpenOptionsCostBasis,
+  getOptionsTotalPremium,
   getStockQuantity,
 } from "../services/stockFunctions";
 import AddDividendForm from "./AddDividendForm";
@@ -60,19 +61,30 @@ const StockDetails = () => {
             <tbody>
               <tr>
                 <td>{getStockQuantity(stock)}</td>
-                <td>{formatMoney(getCostBasis(stock))}</td>
-                <td>{formatMoney(getCashReturns(stock))}</td>
                 <td>
-                  {getCostBasis(stock)
-                    ? formatPercent(getCashReturns(stock), getCostBasis(stock))
+                  {formatMoney(
+                    getCostBasis(stock) + getOpenOptionsCostBasis(stock)
+                  )}
+                </td>
+                <td>
+                  {formatMoney(
+                    getCashReturns(stock) + getOptionsTotalPremium(stock)
+                  )}
+                </td>
+                <td>
+                  {getCostBasis(stock) + getOpenOptionsCostBasis(stock)
+                    ? formatPercent(
+                        getCashReturns(stock) + getOptionsTotalPremium(stock),
+                        getCostBasis(stock) + getOpenOptionsCostBasis(stock)
+                      )
                     : "N/A"}
                 </td>
               </tr>
             </tbody>
           </table>
           <OpenOptionsTable
-            openBTO={getOpenBTO(stock.buyToOpenOptions)}
-            openSTO={getOpenSTO(stock.sellToOpenOptions)}
+            openBTO={getOpenOptions(stock.buyToOpenOptions)}
+            openSTO={getOpenOptions(stock.sellToOpenOptions)}
           />
           <DividendTable dividends={stock.dividends} />
         </>

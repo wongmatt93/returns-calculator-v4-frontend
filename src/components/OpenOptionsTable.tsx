@@ -30,8 +30,6 @@ const OpenOptionsTable = ({ openBTO, openSTO }: Props) => {
 
   const optionsByQuantity: OptionTableDisplay[] = Object.values(res);
 
-  console.log(allOpenOptions);
-
   return (
     <table className="OpenOptionsTable">
       <thead>
@@ -43,7 +41,7 @@ const OpenOptionsTable = ({ openBTO, openSTO }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {openBTO.length &&
+        {allOpenOptions.length &&
           optionsByQuantity.map((option, index) => (
             <OpenOptionRow option={option} key={index} />
           ))}
