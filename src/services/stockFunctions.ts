@@ -1,4 +1,6 @@
+import BuyToClose from "../models/BuyToClose";
 import BuyToOpen from "../models/BuyToOpen";
+import SellToClose from "../models/SellToClose";
 import SellToOpen from "../models/SellToOpen";
 import Stock from "../models/Stock";
 
@@ -33,11 +35,36 @@ export const getDividendReturns = (stock: Stock): number =>
 export const getCashReturns = (stock: Stock): number =>
   getSaleReturns(stock) + getDividendReturns(stock);
 
-export const getOpenBTO = (bto: BuyToOpen[]): BuyToOpen[] =>
-  bto.filter((item) => item.open);
+export const getOpenOptions = (
+  options: BuyToOpen[] | SellToOpen[]
+): BuyToOpen[] => options.filter((item) => item.open);
 
-export const getOpenSTO = (sto: SellToOpen[]): SellToOpen[] =>
-  sto.filter((item) => item.open);
+export const getOpenOptionsCostBasis = (stock: Stock): number => {
+  const openOptions = getOpenOptions(
+    stock.buyToOpenOptions.concat(stock.sellToOpenOptions)
+  );
+  const cash: BuyToOpen[] | SellToOpen[] = openOptions.filter(
+    (option) =>
+      (option.callPut === "P" && option.type === "STO") ||
+      (option.callPut === "C" && option.type === "BTO")
+  );
+  return cash.reduce((pv, cv) => cv.strike * 100 + pv, 0);
+};
+
+export const getOptionsTotalPremium = (stock: Stock): number => {
+  const openTotal: number = stock.buyToOpenOptions
+    .concat(stock.sellToOpenOptions)
+    .reduce((pv, cv) => cv.premium + pv, 0);
+  const closeTotal: number = stock.buyToCloseOptions
+    .concat(stock.sellToCloseOptions)
+    .reduce((pv, cv) => cv.premium + pv, 0);
+
+  return openTotal - closeTotal;
+};
+
+export const getCloseOptionsTotalPremium = (
+  options: BuyToClose[] | SellToClose[]
+): number => options.reduce((pv, cv) => cv.premium + pv, 0);
 
 export const getSharesCommittedToOptions = (stock: Stock): number => {
   const openBTOPut: BuyToOpen[] = stock.buyToOpenOptions.filter(

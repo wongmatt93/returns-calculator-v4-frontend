@@ -1,7 +1,9 @@
 import { User } from "firebase/auth";
 import { createContext } from "react";
+import BuyToClose from "../models/BuyToClose";
 import BuyToOpen from "../models/BuyToOpen";
 import Dividend from "../models/Dividend";
+import SellToClose from "../models/SellToClose";
 import SellToOpen from "../models/SellToOpen";
 import Stock from "../models/Stock";
 import StockPurchase from "../models/StockPurchase";
@@ -18,6 +20,8 @@ export interface AuthContextModel {
   addDividend: (uid: string, ticker: string, dividend: Dividend) => void;
   addBTO: (uid: string, ticker: string, bto: BuyToOpen) => void;
   addSTO: (uid: string, ticker: string, sto: SellToOpen) => void;
+  addBTC: (uid: string, ticker: string, bto: BuyToClose, index: number) => void;
+  addSTC: (uid: string, ticker: string, sto: SellToClose) => void;
 }
 
 const defaultValue: AuthContextModel = {
@@ -30,6 +34,8 @@ const defaultValue: AuthContextModel = {
   addDividend: () => {},
   addBTO: () => {},
   addSTO: () => {},
+  addBTC: () => {},
+  addSTC: () => {},
 };
 
 const AuthContext = createContext(defaultValue);

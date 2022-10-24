@@ -1,7 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { formatMoney, formatPercent } from "../services/formatFunctions";
-import { getCashReturns, getCostBasis } from "../services/stockFunctions";
+import {
+  getCashReturns,
+  getCostBasis,
+  getOpenOptionsCostBasis,
+  getOptionsTotalPremium,
+} from "../services/stockFunctions";
 import "./Totals.css";
 
 const Totals = () => {
@@ -15,8 +20,8 @@ const Totals = () => {
 
     if (stocks.length) {
       stocks.forEach((stock) => {
-        totalCost += getCostBasis(stock);
-        totalCash += getCashReturns(stock);
+        totalCost += getCostBasis(stock) + getOpenOptionsCostBasis(stock);
+        totalCash += getCashReturns(stock) + getOptionsTotalPremium(stock);
       });
     }
 

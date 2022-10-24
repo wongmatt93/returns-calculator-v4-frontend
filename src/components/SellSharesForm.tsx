@@ -16,8 +16,8 @@ interface Props {
 const SellSharesForm = ({ stock }: Props) => {
   const { user, sellShares } = useContext(AuthContext);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [quantity, setQuantity] = useState<number>(0);
-  const [cost, setCost] = useState<number>(0);
+  const [quantity, setQuantity] = useState<string>("");
+  const [cost, setCost] = useState<string>("");
   const [date, setDate] = useState<string>("");
 
   const openModal = (): void => setModalIsOpen(true);
@@ -25,10 +25,10 @@ const SellSharesForm = ({ stock }: Props) => {
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    if (quantity > getStockQuantity(stock)) {
+    if (parseFloat(quantity) > getStockQuantity(stock)) {
       alert("You cannot sell more shares than you own");
     } else if (
-      quantity >
+      parseFloat(quantity) >
       getStockQuantity(stock) - getSharesCommittedToOptions(stock)
     ) {
       alert(
@@ -37,9 +37,14 @@ const SellSharesForm = ({ stock }: Props) => {
     } else {
       let profit: number = 0;
       const remainder: number =
-        (quantity / getStockQuantity(stock)) * getCostBasis(stock);
-      profit = cost - remainder;
-      sellShares(user!.uid, stock.ticker, { quantity, cost, profit, date });
+        (parseFloat(quantity) / getStockQuantity(stock)) * getCostBasis(stock);
+      profit = parseFloat(cost) - remainder;
+      sellShares(user!.uid, stock.ticker, {
+        quantity: parseFloat(quantity),
+        cost: parseFloat(cost),
+        profit,
+        date,
+      });
       setModalIsOpen(false);
     }
   };
@@ -67,7 +72,7 @@ const SellSharesForm = ({ stock }: Props) => {
               name="quantity"
               id="quantity"
               value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              onChange={(e) => setQuantity(e.target.value)}
             />
           </div>
           <div className="sell-shares-inputs">
@@ -77,7 +82,7 @@ const SellSharesForm = ({ stock }: Props) => {
               name="cost"
               id="cost"
               value={cost}
-              onChange={(e) => setCost(parseInt(e.target.value))}
+              onChange={(e) => setCost(e.target.value)}
             />
           </div>
           <div className="sell-shares-inputs">
