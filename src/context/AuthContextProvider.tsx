@@ -85,9 +85,10 @@ const AuthContextProvider = ({ children }: Props) => {
   const addSTC = (
     uid: string,
     ticker: string,
-    stc: SellToClose
+    stc: SellToClose,
+    index: number
   ): Promise<void> =>
-    addNewSTC(uid, ticker, stc).then(() => getAndSetProfiles());
+    addNewSTC(uid, ticker, stc, index).then(() => getAndSetProfiles());
 
   useEffect(() => {
     // useEffect to only register once at start

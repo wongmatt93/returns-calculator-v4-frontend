@@ -93,7 +93,12 @@ export const addNewSTO = async (
 export const addNewSTC = async (
   uid: string,
   ticker: string,
-  stc: SellToClose
+  stc: SellToClose,
+  index: number
 ): Promise<StockPurchase> =>
-  (await axios.put(`${baseURL}/user_profiles/stocks/stc/${uid}/${ticker}`, stc))
-    .data;
+  (
+    await axios.put(
+      `${baseURL}/user_profiles/stocks/stc/${uid}/${ticker}/${index}`,
+      stc
+    )
+  ).data;

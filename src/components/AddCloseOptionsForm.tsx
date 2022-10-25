@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import BuyToClose from "../models/BuyToClose";
+import BuyToOpen from "../models/BuyToOpen";
 import OptionTableDisplay from "../models/OptionTableDisplay";
 import SellToClose from "../models/SellToClose";
 import SellToOpen from "../models/SellToOpen";
@@ -47,19 +48,32 @@ const AddCloseOptionsForm = ({ optionDisplay }: Props) => {
             (stock) => stock.ticker === ticker
           );
           const openOption: SellToOpen | undefined =
-            stock?.sellToOpenOptions.find((option) => {
-              return (
+            stock?.sellToOpenOptions.filter(
+              (option) =>
                 option.callPut === newOption.callPut &&
                 option.expirationDate === newOption.expirationDate &&
                 option.strike === newOption.strike &&
                 option.open
-              );
-            });
+            )[i];
           const index: number = stock!.sellToOpenOptions.indexOf(openOption!);
           addBTC(user!.uid, ticker!, newOption, index);
         }
       } else {
-        addSTC(user!.uid, ticker!, newOption);
+        for (let i: number = 0; i < quantity; i++) {
+          const stock: Stock | undefined = currentUserProfile!.stocks.find(
+            (stock) => stock.ticker === ticker
+          );
+          const openOption: BuyToOpen | undefined =
+            stock?.buyToOpenOptions.filter(
+              (option) =>
+                option.callPut === newOption.callPut &&
+                option.expirationDate === newOption.expirationDate &&
+                option.strike === newOption.strike &&
+                option.open
+            )[i];
+          const index: number = stock!.buyToOpenOptions.indexOf(openOption!);
+          addSTC(user!.uid, ticker!, newOption, index);
+        }
       }
       setModalIsOpen(false);
     }
