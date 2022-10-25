@@ -21,7 +21,12 @@ export interface AuthContextModel {
   addBTO: (uid: string, ticker: string, bto: BuyToOpen) => void;
   addSTO: (uid: string, ticker: string, sto: SellToOpen) => void;
   addBTC: (uid: string, ticker: string, bto: BuyToClose, index: number) => void;
-  addSTC: (uid: string, ticker: string, sto: SellToClose) => void;
+  addSTC: (
+    uid: string,
+    ticker: string,
+    sto: SellToClose,
+    index: number
+  ) => void;
 }
 
 const defaultValue: AuthContextModel = {

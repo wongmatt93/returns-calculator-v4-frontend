@@ -18,7 +18,13 @@ const StockTable = () => {
       </thead>
       <tbody>
         {stocks.length ? (
-          stocks.map((stock) => <StockRow stock={stock} key={stock.ticker} />)
+          stocks
+            .sort(function (a, b) {
+              const textA = a.ticker;
+              const textB = b.ticker;
+              return textA < textB ? -1 : textA > textB ? 1 : 0;
+            })
+            .map((stock) => <StockRow stock={stock} key={stock.ticker} />)
         ) : (
           <tr>
             <td colSpan={4}>No Stocks Added</td>
