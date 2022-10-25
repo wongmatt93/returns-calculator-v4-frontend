@@ -51,16 +51,11 @@ export const getOpenOptionsCostBasis = (stock: Stock): number => {
   return cash.reduce((pv, cv) => cv.strike * 100 + pv, 0);
 };
 
-export const getOptionsTotalPremium = (stock: Stock): number => {
-  const openTotal: number = stock.buyToOpenOptions
-    .concat(stock.sellToOpenOptions)
-    .reduce((pv, cv) => cv.premium + pv, 0);
-  const closeTotal: number = stock.buyToCloseOptions
-    .concat(stock.sellToCloseOptions)
-    .reduce((pv, cv) => cv.premium + pv, 0);
-
-  return openTotal - closeTotal;
-};
+export const getOptionsTotalPremium = (stock: Stock): number =>
+  stock.sellToOpenOptions.reduce((pv, cv) => cv.premium + pv, 0) +
+  stock.sellToCloseOptions.reduce((pv, cv) => cv.premium + pv, 0) -
+  stock.buyToOpenOptions.reduce((pv, cv) => cv.premium + pv, 0) -
+  stock.buyToCloseOptions.reduce((pv, cv) => cv.premium + pv, 0);
 
 export const getCloseOptionsTotalPremium = (
   options: BuyToClose[] | SellToClose[]
