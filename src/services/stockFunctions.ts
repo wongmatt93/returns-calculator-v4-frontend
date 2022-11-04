@@ -3,6 +3,7 @@ import BuyToOpen from "../models/BuyToOpen";
 import SellToClose from "../models/SellToClose";
 import SellToOpen from "../models/SellToOpen";
 import Stock from "../models/Stock";
+import { formatPercent } from "./formatFunctions";
 
 const getPurchaseQuantity = (stock: Stock): number =>
   stock.stockPurchases.reduce((pv, cv) => cv.quantity + pv, 0);
@@ -10,30 +11,41 @@ const getPurchaseQuantity = (stock: Stock): number =>
 const getSaleQuantity = (stock: Stock): number =>
   stock.stockSales.reduce((pv, cv) => cv.quantity + pv, 0);
 
+export const getStockQuantity = (stock: Stock): number =>
+  parseFloat((getPurchaseQuantity(stock) - getSaleQuantity(stock)).toFixed(4));
+
 const getPurchaseCost = (stock: Stock): number =>
   stock.stockPurchases.reduce((pv, cv) => cv.cost + pv, 0);
+
+export const getBTOCost = (stock: Stock): number =>
+  stock.buyToOpenOptions.reduce((pv, cv) => cv.premium + pv, 0);
+
+export const getBTCCost = (stock: Stock): number =>
+  stock.buyToCloseOptions.reduce((pv, cv) => cv.premium + pv, 0);
+
+export const getTotalDebits = (stock: Stock): number =>
+  getPurchaseCost(stock) + getBTOCost(stock) + getBTCCost(stock);
 
 export const getSaleCost = (stock: Stock): number =>
   stock.stockSales.reduce((pv, cv) => cv.cost + pv, 0);
 
-export const getStockQuantity = (stock: Stock): number =>
-  getPurchaseQuantity(stock) - getSaleQuantity(stock);
-
-export const getCostBasis = (stock: Stock): number =>
-  getSaleQuantity(stock)
-    ? getPurchaseCost(stock) -
-      (getPurchaseCost(stock) / getPurchaseQuantity(stock)) *
-        getSaleQuantity(stock)
-    : getPurchaseCost(stock);
-
-export const getSaleReturns = (stock: Stock): number =>
-  stock.stockSales.reduce((pv, cv) => cv.profit + pv, 0);
-
 export const getDividendReturns = (stock: Stock): number =>
   stock.dividends.reduce((pv, cv) => cv.amount + pv, 0);
 
-export const getCashReturns = (stock: Stock): number =>
-  getSaleReturns(stock) + getDividendReturns(stock);
+export const getSTOReturns = (stock: Stock): number =>
+  stock.sellToOpenOptions.reduce((pv, cv) => cv.premium + pv, 0);
+
+export const getSTCReturns = (stock: Stock): number =>
+  stock.sellToCloseOptions.reduce((pv, cv) => cv.premium + pv, 0);
+
+export const getTotalCredits = (stock: Stock): number =>
+  getSaleCost(stock) +
+  getDividendReturns(stock) +
+  getSTOReturns(stock) +
+  getSTCReturns(stock);
+
+export const getStockCostBasis = (stock: Stock): number =>
+  getPurchaseCost(stock) - getSaleCost(stock);
 
 export const getOpenOptions = (
   options: BuyToOpen[] | SellToOpen[]
@@ -50,6 +62,11 @@ export const getOpenOptionsCostBasis = (stock: Stock): number => {
   );
   return cash.reduce((pv, cv) => cv.strike * 100 + pv, 0);
 };
+
+export const getTotalCostBasis = (stock: Stock): number =>
+  getStockQuantity(stock)
+    ? getStockCostBasis(stock) + getOpenOptionsCostBasis(stock)
+    : getOpenOptionsCostBasis(stock);
 
 export const getOptionsTotalPremium = (stock: Stock): number =>
   stock.sellToOpenOptions.reduce((pv, cv) => cv.premium + pv, 0) +
@@ -70,3 +87,14 @@ export const getSharesCommittedToOptions = (stock: Stock): number => {
   );
   return (openBTOPut.length + openSTOCall.length) * 100;
 };
+
+export const getTotalProfit = (stock: Stock): number =>
+  getStockQuantity(stock)
+    ? getTotalCredits(stock) -
+      (getTotalDebits(stock) - getStockCostBasis(stock))
+    : getTotalCredits(stock) - getTotalDebits(stock);
+
+export const getPercentReturn = (stock: Stock): number | string =>
+  getTotalCostBasis(stock)
+    ? formatPercent(getTotalProfit(stock) / getTotalCostBasis(stock))
+    : "N/A";

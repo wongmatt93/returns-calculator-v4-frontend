@@ -1,12 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { formatMoney, formatPercent } from "../services/formatFunctions";
-import {
-  getCashReturns,
-  getCostBasis,
-  getOpenOptionsCostBasis,
-  getOptionsTotalPremium,
-} from "../services/stockFunctions";
+import { getTotalCostBasis, getTotalProfit } from "../services/stockFunctions";
 import "./Totals.css";
 
 const Totals = () => {
@@ -20,8 +15,8 @@ const Totals = () => {
 
     if (stocks.length) {
       stocks.forEach((stock) => {
-        totalCost += getCostBasis(stock) + getOpenOptionsCostBasis(stock);
-        totalCash += getCashReturns(stock) + getOptionsTotalPremium(stock);
+        totalCost += getTotalCostBasis(stock);
+        totalCash += getTotalProfit(stock);
       });
     }
 
@@ -43,7 +38,7 @@ const Totals = () => {
         <tr>
           <td>{formatMoney(costBasis)}</td>
           <td>{formatMoney(cashReturn)}</td>
-          <td>{cashReturn ? formatPercent(cashReturn, costBasis) : "N/A"}</td>
+          <td>{costBasis ? formatPercent(cashReturn / costBasis) : "N/A"}</td>
         </tr>
       </tbody>
     </table>

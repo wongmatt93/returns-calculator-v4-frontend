@@ -9,13 +9,12 @@ const AddStockForm = () => {
   const handleSubmit = (e: FormEvent): void => {
     if (user) {
       e.preventDefault();
-      const newTicker = ticker.toUpperCase();
-      if (stocks.find((stock) => stock.ticker === newTicker)) {
-        alert(`${newTicker} has already been added`);
+      if (stocks.find((stock) => stock.ticker === ticker)) {
+        alert(`${ticker} has already been added`);
       } else {
         addStock(
           {
-            ticker: newTicker,
+            ticker,
             stockPurchases: [],
             stockSales: [],
             buyToOpenOptions: [],
@@ -40,7 +39,7 @@ const AddStockForm = () => {
           name="ticker"
           id="ticker"
           value={ticker}
-          onChange={(e) => setTicker(e.target.value)}
+          onChange={(e) => setTicker(e.target.value.toUpperCase())}
           required
         />
         <button>Add</button>

@@ -1,5 +1,5 @@
-const formatPercent = (number1: number, number2: number): string => {
-  return `${((number1 / number2) * 100)
+const formatPercent = (number: number): string => {
+  return `${(number * 100)
     .toFixed(2)
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%`;
