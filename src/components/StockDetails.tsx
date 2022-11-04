@@ -4,14 +4,12 @@ import AuthContext from "../context/AuthContext";
 import AlphaAdvantageResponse from "../models/AlphaAdvantageResponse";
 import Stock from "../models/Stock";
 import { getStockInfo } from "../services/alphaAdvantageService";
-import { formatMoney, formatPercent } from "../services/formatFunctions";
+import { formatMoney } from "../services/formatFunctions";
 import {
-  getCashReturns,
-  getCostBasis,
   getOpenOptions,
-  getOpenOptionsCostBasis,
-  getOptionsTotalPremium,
   getStockQuantity,
+  getTotalCredits,
+  getTotalDebits,
 } from "../services/stockFunctions";
 import AddDividendForm from "./AddDividendForm";
 import AddOpenOptionsForm from "./AddOpenOptionsForm";
@@ -52,33 +50,30 @@ const StockDetails = () => {
           <table className="individual-stock-table">
             <thead>
               <tr>
-                <th>Quantity</th>
-                <th>Cost Basis</th>
-                <th>Cash Return</th>
-                <th>Return %</th>
+                <th>Total Credits</th>
+                <th>Total Debits</th>
+                <th>Profit</th>
+                <th>Break Even</th>
+                <th># of Shares</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{getStockQuantity(stock)}</td>
+                <td>{formatMoney(getTotalCredits(stock))}</td>
+                <td>{formatMoney(getTotalDebits(stock))}</td>
                 <td>
-                  {formatMoney(
-                    getCostBasis(stock) + getOpenOptionsCostBasis(stock)
-                  )}
+                  {formatMoney(getTotalCredits(stock) - getTotalDebits(stock))}
                 </td>
                 <td>
-                  {formatMoney(
-                    getCashReturns(stock) + getOptionsTotalPremium(stock)
-                  )}
-                </td>
-                <td>
-                  {getCostBasis(stock) + getOpenOptionsCostBasis(stock)
-                    ? formatPercent(
-                        getCashReturns(stock) + getOptionsTotalPremium(stock),
-                        getCostBasis(stock) + getOpenOptionsCostBasis(stock)
+                  {getStockQuantity(stock)
+                    ? formatMoney(
+                        ((getTotalCredits(stock) - getTotalDebits(stock)) /
+                          getStockQuantity(stock)) *
+                          -1
                       )
                     : "N/A"}
                 </td>
+                <td>{getStockQuantity(stock)}</td>
               </tr>
             </tbody>
           </table>

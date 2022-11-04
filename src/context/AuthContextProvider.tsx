@@ -94,12 +94,9 @@ const AuthContextProvider = ({ children }: Props) => {
     // useEffect to only register once at start
     return auth.onAuthStateChanged((newUser) => {
       setUser(newUser);
+      getAndSetProfiles();
     });
   }, []);
-
-  useEffect(() => {
-    user && getAndSetProfiles();
-  }, [user]);
 
   useEffect(() => {
     if (user && profiles) {
@@ -108,6 +105,7 @@ const AuthContextProvider = ({ children }: Props) => {
       );
       if (found) {
         setCurrentUserProfile(found);
+        setStocks(found.stocks);
       } else {
         const newUser: UserProfile = {
           name: user.displayName,
@@ -117,13 +115,10 @@ const AuthContextProvider = ({ children }: Props) => {
           stocks: [],
         };
         addNewProfile(newUser).then(() => setCurrentUserProfile(newUser));
+        setStocks(newUser.stocks);
       }
     }
   }, [profiles]);
-
-  useEffect(() => {
-    currentUserProfile && setStocks(currentUserProfile.stocks);
-  }, [currentUserProfile]);
 
   return (
     <AuthContext.Provider

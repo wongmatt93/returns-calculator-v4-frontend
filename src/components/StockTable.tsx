@@ -13,7 +13,7 @@ const StockTable = () => {
           <th>Ticker</th>
           <th>Cost Basis</th>
           <th>Cash Returns</th>
-          <th>Returns %</th>
+          <th>% Return</th>
         </tr>
       </thead>
       <tbody>

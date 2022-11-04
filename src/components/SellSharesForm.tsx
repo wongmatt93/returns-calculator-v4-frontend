@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import "./SellSharesForm.css";
 import Stock from "../models/Stock";
 import {
-  getCostBasis,
+  getStockCostBasis,
   getSharesCommittedToOptions,
   getStockQuantity,
 } from "../services/stockFunctions";
@@ -37,7 +37,8 @@ const SellSharesForm = ({ stock }: Props) => {
     } else {
       let profit: number = 0;
       const remainder: number =
-        (parseFloat(quantity) / getStockQuantity(stock)) * getCostBasis(stock);
+        (parseFloat(quantity) / getStockQuantity(stock)) *
+        getStockCostBasis(stock);
       profit = parseFloat(cost) - remainder;
       sellShares(user!.uid, stock.ticker, {
         quantity: parseFloat(quantity),

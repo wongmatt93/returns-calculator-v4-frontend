@@ -5,6 +5,7 @@ import BuyToOpen from "../models/BuyToOpen";
 import Dividend from "../models/Dividend";
 import SellToClose from "../models/SellToClose";
 import SellToOpen from "../models/SellToOpen";
+import StockPurchase from "../models/StockPurchase";
 import StockSale from "../models/StockSale";
 import { formatMoney } from "../services/formatFunctions";
 import "./FinancialsPage.css";
@@ -12,41 +13,41 @@ import YearlyTotals from "./YearlyTotals";
 
 const FinancialsPage = () => {
   const { stocks } = useContext(AuthContext);
-
+  const [stockPurchases, setStockPurchases] = useState<StockPurchase[]>([]);
   const [stockSales, setStockSales] = useState<StockSale[]>([]);
   const [btoOptions, setBTOOptions] = useState<BuyToOpen[]>([]);
   const [btcOptions, setBTCOptions] = useState<BuyToClose[]>([]);
   const [stoOptions, setSTOOptions] = useState<SellToOpen[]>([]);
   const [stcOptions, setSTCOptions] = useState<SellToClose[]>([]);
   const [dividends, setDividends] = useState<Dividend[]>([]);
-  const [monthlyReport, setMonthlyReport] = useState<{ [key: string]: any }>(
-    {}
-  );
+  // const [monthlyReport, setMonthlyReport] = useState<{ [key: string]: any }>(
+  //   {}
+  // );
   const [quarterlyReport, setQuarterlyReport] = useState<{
     [key: string]: any;
   }>({});
   const [yearlyReport, setYearlyReport] = useState<{ [key: string]: any }>({});
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  // const monthNames = [
+  //   "January",
+  //   "February",
+  //   "March",
+  //   "April",
+  //   "May",
+  //   "June",
+  //   "July",
+  //   "August",
+  //   "September",
+  //   "October",
+  //   "November",
+  //   "December",
+  // ];
 
-  const getMonth = (date = new Date()): string => {
-    const month: number = date.getMonth();
-    const year: string = date.getFullYear().toString();
-    return `${year} ${month}`;
-  };
+  // const getMonth = (date = new Date()): string => {
+  //   const month: number = date.getMonth();
+  //   const year: string = date.getFullYear().toString();
+  //   return `${year} ${month}`;
+  // };
 
   const getQuarter = (date = new Date()): string => {
     const quarter: string = Math.floor(date.getMonth() / 3 + 1).toString();
@@ -61,185 +62,165 @@ const FinancialsPage = () => {
 
   useEffect(() => {
     stocks.forEach((stock) => {
-      setStockSales((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.stockSales);
-        return newList;
-      });
-      setBTOOptions((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.buyToOpenOptions);
-        return newList;
-      });
-      setBTCOptions((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.buyToCloseOptions);
-        return newList;
-      });
-      setSTOOptions((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.sellToOpenOptions);
-        return newList;
-      });
-      setSTCOptions((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.sellToCloseOptions);
-        return newList;
-      });
-      setDividends((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.dividends);
-        return newList;
-      });
+      setStockPurchases((prev) => [...prev, ...stock.stockPurchases]);
+      setStockSales((prev) => [...prev, ...stock.stockSales]);
+      setBTOOptions((prev) => [...prev, ...stock.buyToOpenOptions]);
+      setBTCOptions((prev) => [...prev, ...stock.buyToCloseOptions]);
+      setSTOOptions((prev) => [...prev, ...stock.sellToOpenOptions]);
+      setSTCOptions((prev) => [...prev, ...stock.sellToCloseOptions]);
+      setDividends((prev) => [...prev, ...stock.dividends]);
     });
-  }, []);
+  }, [stocks]);
 
   useEffect(() => {
-    setMonthlyReport(() => {
-      const newObject: { [key: string]: any } = {};
-      stockSales.forEach((item) => {
-        if (!newObject[getMonth(new Date(item.date))]) {
-          newObject[getMonth(new Date(item.date))] = item.profit;
-        } else {
-          newObject[getMonth(new Date(item.date))] += item.profit;
-        }
-      });
-      btoOptions.forEach((item) => {
-        if (!newObject[getMonth(new Date(item.transactionDate))]) {
-          newObject[getMonth(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getMonth(new Date(item.transactionDate))] -= item.premium;
-        }
-      });
-      btcOptions.forEach((item) => {
-        if (!newObject[getMonth(new Date(item.transactionDate))]) {
-          newObject[getMonth(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getMonth(new Date(item.transactionDate))] -= item.premium;
-        }
-      });
-      stoOptions.forEach((item) => {
-        if (!newObject[getMonth(new Date(item.transactionDate))]) {
-          newObject[getMonth(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getMonth(new Date(item.transactionDate))] += item.premium;
-        }
-      });
-      stcOptions.forEach((item) => {
-        if (!newObject[getMonth(new Date(item.transactionDate))]) {
-          newObject[getMonth(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getMonth(new Date(item.transactionDate))] += item.premium;
-        }
-      });
-      dividends.forEach((item) => {
-        if (!newObject[getMonth(new Date(item.date))]) {
-          newObject[getMonth(new Date(item.date))] = item.amount;
-        } else {
-          newObject[getMonth(new Date(item.date))] += item.amount;
-        }
-      });
-      return newObject;
-    });
+    // setMonthlyReport(() => {
+    //   const newObject: { [key: string]: any } = {};
+    //   stockPurchases.forEach((item) => {
+    //     if (!newObject[getMonth(new Date(item.date))]) {
+    //       newObject[getMonth(new Date(item.date))] = item.cost;
+    //     } else {
+    //       newObject[getMonth(new Date(item.date))] -= item.cost;
+    //     }
+    //   });
+    //   stockSales.forEach((item) => {
+    //     if (!newObject[getMonth(new Date(item.date))]) {
+    //       newObject[getMonth(new Date(item.date))] = item.cost;
+    //     } else {
+    //       newObject[getMonth(new Date(item.date))] += item.cost;
+    //     }
+    //   });
+    //   btoOptions.forEach((item) =>
+    //     !newObject[getMonth(new Date(item.transactionDate))]
+    //       ? (newObject[getMonth(new Date(item.transactionDate))] =
+    //           item.premium * -1)
+    //       : (newObject[getMonth(new Date(item.transactionDate))] -=
+    //           item.premium)
+    //   );
+    //   btcOptions.forEach((item) =>
+    //     !newObject[getMonth(new Date(item.transactionDate))]
+    //       ? (newObject[getMonth(new Date(item.transactionDate))] =
+    //           item.premium * -1)
+    //       : (newObject[getMonth(new Date(item.transactionDate))] -=
+    //           item.premium)
+    //   );
+    //   stoOptions.forEach((item) =>
+    //     !newObject[getMonth(new Date(item.transactionDate))]
+    //       ? (newObject[getMonth(new Date(item.transactionDate))] = item.premium)
+    //       : (newObject[getMonth(new Date(item.transactionDate))] +=
+    //           item.premium)
+    //   );
+    //   stcOptions.forEach((item) =>
+    //     !newObject[getMonth(new Date(item.transactionDate))]
+    //       ? (newObject[getMonth(new Date(item.transactionDate))] = item.premium)
+    //       : (newObject[getMonth(new Date(item.transactionDate))] +=
+    //           item.premium)
+    //   );
+    //   dividends.forEach((item) =>
+    //     !newObject[getMonth(new Date(item.date))]
+    //       ? (newObject[getMonth(new Date(item.date))] = item.amount)
+    //       : (newObject[getMonth(new Date(item.date))] += item.amount)
+    //   );
+    //   return newObject;
+    // });
+
     setQuarterlyReport(() => {
       const newObject: { [key: string]: any } = {};
-      stockSales.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.date))]) {
-          newObject[getQuarter(new Date(item.date))] = item.profit;
-        } else {
-          newObject[getQuarter(new Date(item.date))] += item.profit;
-        }
-      });
-      btoOptions.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.transactionDate))]) {
-          newObject[getQuarter(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getQuarter(new Date(item.transactionDate))] -= item.premium;
-        }
-      });
-      btcOptions.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.transactionDate))]) {
-          newObject[getQuarter(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getQuarter(new Date(item.transactionDate))] -= item.premium;
-        }
-      });
-      stoOptions.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.transactionDate))]) {
-          newObject[getQuarter(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getQuarter(new Date(item.transactionDate))] += item.premium;
-        }
-      });
-      stcOptions.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.transactionDate))]) {
-          newObject[getQuarter(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getQuarter(new Date(item.transactionDate))] += item.premium;
-        }
-      });
-      dividends.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.date))]) {
-          newObject[getQuarter(new Date(item.date))] = item.amount;
-        } else {
-          newObject[getQuarter(new Date(item.date))] += item.amount;
-        }
-      });
+      // stockPurchases.forEach((item) =>
+      //   !newObject[getQuarter(new Date(item.date))]
+      //     ? (newObject[getQuarter(new Date(item.date))] = item.cost * -1)
+      //     : (newObject[getQuarter(new Date(item.date))] -= item.cost)
+      // );
+      // stockSales.forEach((item) =>
+      //   !newObject[getQuarter(new Date(item.date))]
+      //     ? (newObject[getQuarter(new Date(item.date))] = item.cost)
+      //     : (newObject[getQuarter(new Date(item.date))] += item.cost)
+      // );
+      btoOptions.forEach((item) =>
+        !newObject[getQuarter(new Date(item.transactionDate))]
+          ? (newObject[getQuarter(new Date(item.transactionDate))] =
+              item.premium * -1)
+          : (newObject[getQuarter(new Date(item.transactionDate))] -=
+              item.premium)
+      );
+      btcOptions.forEach((item) =>
+        !newObject[getQuarter(new Date(item.transactionDate))]
+          ? (newObject[getQuarter(new Date(item.transactionDate))] =
+              item.premium * -1)
+          : (newObject[getQuarter(new Date(item.transactionDate))] -=
+              item.premium)
+      );
+      stoOptions.forEach((item) =>
+        !newObject[getQuarter(new Date(item.transactionDate))]
+          ? (newObject[getQuarter(new Date(item.transactionDate))] =
+              item.premium)
+          : (newObject[getQuarter(new Date(item.transactionDate))] +=
+              item.premium)
+      );
+      stcOptions.forEach((item) =>
+        !newObject[getQuarter(new Date(item.transactionDate))]
+          ? (newObject[getQuarter(new Date(item.transactionDate))] =
+              item.premium)
+          : (newObject[getQuarter(new Date(item.transactionDate))] +=
+              item.premium)
+      );
+      dividends.forEach((item) =>
+        !newObject[getQuarter(new Date(item.date))]
+          ? (newObject[getQuarter(new Date(item.date))] = item.amount)
+          : (newObject[getQuarter(new Date(item.date))] += item.amount)
+      );
       return newObject;
     });
+
     setYearlyReport(() => {
       const newObject: { [key: string]: any } = {};
-      stockSales.forEach((item) => {
-        if (!newObject[getYear(new Date(item.date))]) {
-          newObject[getYear(new Date(item.date))] = item.profit;
-        } else {
-          newObject[getYear(new Date(item.date))] += item.profit;
-        }
-      });
-      btoOptions.forEach((item) => {
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getYear(new Date(item.transactionDate))] -= item.premium;
-        }
-      });
-      btcOptions.forEach((item) => {
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getYear(new Date(item.transactionDate))] -= item.premium;
-        }
-      });
-      stoOptions.forEach((item) => {
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getYear(new Date(item.transactionDate))] += item.premium;
-        }
-      });
-      stcOptions.forEach((item) => {
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getYear(new Date(item.transactionDate))] += item.premium;
-        }
-      });
-      dividends.forEach((item) => {
-        if (!newObject[getYear(new Date(item.date))]) {
-          newObject[getYear(new Date(item.date))] = item.amount;
-        } else {
-          newObject[getYear(new Date(item.date))] += item.amount;
-        }
-      });
+      // stockPurchases.forEach((item) =>
+      //   !newObject[getYear(new Date(item.date))]
+      //     ? (newObject[getYear(new Date(item.date))] = item.cost * -1)
+      //     : (newObject[getYear(new Date(item.date))] -= item.cost)
+      // );
+      // stockSales.forEach((item) =>
+      //   !newObject[getYear(new Date(item.date))]
+      //     ? (newObject[getYear(new Date(item.date))] = item.cost)
+      //     : (newObject[getYear(new Date(item.date))] += item.cost)
+      // );
+      btoOptions.forEach((item) =>
+        !newObject[getYear(new Date(item.transactionDate))]
+          ? (newObject[getYear(new Date(item.transactionDate))] =
+              item.premium * -1)
+          : (newObject[getYear(new Date(item.transactionDate))] -= item.premium)
+      );
+      btcOptions.forEach((item) =>
+        !newObject[getYear(new Date(item.transactionDate))]
+          ? (newObject[getYear(new Date(item.transactionDate))] =
+              item.premium * -1)
+          : (newObject[getYear(new Date(item.transactionDate))] -= item.premium)
+      );
+      stoOptions.forEach((item) =>
+        !newObject[getYear(new Date(item.transactionDate))]
+          ? (newObject[getYear(new Date(item.transactionDate))] = item.premium)
+          : (newObject[getYear(new Date(item.transactionDate))] += item.premium)
+      );
+      stcOptions.forEach((item) =>
+        !newObject[getYear(new Date(item.transactionDate))]
+          ? (newObject[getYear(new Date(item.transactionDate))] = item.premium)
+          : (newObject[getYear(new Date(item.transactionDate))] += item.premium)
+      );
+      dividends.forEach((item) =>
+        !newObject[getYear(new Date(item.date))]
+          ? (newObject[getYear(new Date(item.date))] = item.amount)
+          : (newObject[getYear(new Date(item.date))] += item.amount)
+      );
       return newObject;
     });
-  }, [stockSales, btoOptions, btcOptions, stoOptions, stcOptions, dividends]);
+  }, [
+    stockPurchases,
+    stockSales,
+    btoOptions,
+    btcOptions,
+    stoOptions,
+    stcOptions,
+    dividends,
+  ]);
 
   return (
     <div className="FinancialsPage">
