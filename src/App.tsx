@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import StockDetails from "./components/StockDetails";
 import LandingPage from "./components/LandingPage";
-import Overview from "./components/Overview";
-import FinancialsPage from "./components/FinancialsPage";
 import StockHistory from "./components/StockHistory";
+import FinancialHistory from "./components/FinancialHistory";
+import PortfolioOverview from "./components/PortfolioOverview";
+import Homepage from "./components/Homepage";
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/overview" element={<Overview />} />
+          <Route path="/home" element={<Homepage />} />
+          <Route path="/portfolio" element={<PortfolioOverview />} />
           <Route path="/stocks/:ticker/details" element={<StockDetails />} />
           <Route path="/stocks/:ticker/history" element={<StockHistory />} />
-          <Route path="/financials" element={<FinancialsPage />} />
+          <Route path="/history" element={<FinancialHistory />} />
         </Routes>
       </Router>
     </div>

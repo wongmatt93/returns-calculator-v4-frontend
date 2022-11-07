@@ -4,7 +4,7 @@ import AuthContext from "../context/AuthContext";
 import Stock from "../models/Stock";
 import TransactionView from "../models/TransactionView";
 import "./StockHistory.css";
-import StockYearlyHistory from "./StockYearlyHistory";
+import StockHistoryItem from "./StockHistoryItem";
 
 const StockHistory = () => {
   const { stocks } = useContext(AuthContext);
@@ -12,146 +12,90 @@ const StockHistory = () => {
   const [checkBuySell, setCheckBuySell] = useState(true);
   const [checkOption, setCheckOption] = useState(true);
   const [checkDividend, setCheckDividend] = useState(true);
-  const [yearlyReport, setYearlyReport] = useState<{
-    [key: string]: TransactionView[];
-  }>({});
-
-  const getYear = (date = new Date()): string => date.getFullYear().toString();
+  const [transactions, setTransactions] = useState<TransactionView[]>([]);
 
   useEffect(() => {
     const stock: Stock | undefined = stocks.find(
       (stock) => stock.ticker === ticker
     );
-    setYearlyReport(() => {
-      const newObject: { [key: string]: any } = {};
-      stock!.stockPurchases.forEach((item) => {
-        const transactionObject: TransactionView = {
-          ticker: ticker!,
-          transactionName: "Stock Purchase",
-          transactionType: "buySell",
-          transactionDate: item.date,
-          transactionAmount: item.cost,
-        };
-        if (!newObject[getYear(new Date(item.date))]) {
-          newObject[getYear(new Date(item.date))] = [];
-          newObject[getYear(new Date(item.date))].push(transactionObject);
-        } else {
-          newObject[getYear(new Date(item.date))].push(transactionObject);
-        }
-      });
-      stock!.stockSales.forEach((item) => {
-        const transactionObject: TransactionView = {
-          ticker: ticker!,
-          transactionName: "Stock Sale",
-          transactionType: "buySell",
-          transactionDate: item.date,
-          transactionAmount: item.cost,
-        };
-        if (!newObject[getYear(new Date(item.date))]) {
-          newObject[getYear(new Date(item.date))] = [];
-          newObject[getYear(new Date(item.date))].push(transactionObject);
-        } else {
-          newObject[getYear(new Date(item.date))].push(transactionObject);
-        }
-      });
-      stock!.buyToOpenOptions.forEach((item) => {
-        const transactionObject: TransactionView = {
-          ticker: ticker!,
-          transactionName: "Buy To Open",
-          transactionType: "option",
-          optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
-          transactionDate: item.transactionDate,
-          transactionAmount: item.premium,
-        };
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] = [];
-          newObject[getYear(new Date(item.transactionDate))].push(
-            transactionObject
-          );
-        } else {
-          newObject[getYear(new Date(item.transactionDate))].push(
-            transactionObject
-          );
-        }
-      });
-      stock!.buyToCloseOptions.forEach((item) => {
-        const transactionObject: TransactionView = {
-          ticker: ticker!,
-          transactionName: "Buy To Close",
-          transactionType: "option",
-          optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
-          transactionDate: item.transactionDate,
-          transactionAmount: item.premium,
-        };
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] = [];
-          newObject[getYear(new Date(item.transactionDate))].push(
-            transactionObject
-          );
-        } else {
-          newObject[getYear(new Date(item.transactionDate))].push(
-            transactionObject
-          );
-        }
-      });
-      stock!.sellToOpenOptions.forEach((item) => {
-        const transactionObject: TransactionView = {
-          ticker: ticker!,
-          transactionName: "Sell To Open",
-          transactionType: "option",
-          optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
-          transactionDate: item.transactionDate,
-          transactionAmount: item.premium,
-        };
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] = [];
-          newObject[getYear(new Date(item.transactionDate))].push(
-            transactionObject
-          );
-        } else {
-          newObject[getYear(new Date(item.transactionDate))].push(
-            transactionObject
-          );
-        }
-      });
-      stock!.sellToCloseOptions.forEach((item) => {
-        const transactionObject: TransactionView = {
-          ticker: ticker!,
-          transactionName: "Sell To Close",
-          transactionType: "option",
-          optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
-          transactionDate: item.transactionDate,
-          transactionAmount: item.premium,
-        };
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] = [];
-          newObject[getYear(new Date(item.transactionDate))].push(
-            transactionObject
-          );
-        } else {
-          newObject[getYear(new Date(item.transactionDate))].push(
-            transactionObject
-          );
-        }
-      });
-      stock!.dividends.forEach((item) => {
-        const transactionObject: TransactionView = {
-          ticker: ticker!,
-          transactionName: "Dividend",
-          transactionType: "dividend",
-          transactionDate: item.date,
-          transactionAmount: item.amount,
-        };
-        if (!newObject[getYear(new Date(item.date))]) {
-          newObject[getYear(new Date(item.date))] = [];
-          newObject[getYear(new Date(item.date))].push(transactionObject);
-        } else {
-          newObject[getYear(new Date(item.date))].push(transactionObject);
-        }
-      });
-      return newObject;
+
+    stock!.stockPurchases.forEach((item) => {
+      const transactionObject: TransactionView = {
+        ticker: ticker!,
+        transactionName: "Stock Purchase",
+        transactionType: "buySell",
+        stockQuantity: item.quantity,
+        transactionDate: item.date,
+        transactionAmount: item.cost,
+      };
+      setTransactions((prev) => [...prev, transactionObject]);
     });
-  }, [stocks, ticker]);
+    stock!.stockSales.forEach((item) => {
+      const transactionObject: TransactionView = {
+        ticker: ticker!,
+        transactionName: "Stock Sale",
+        transactionType: "buySell",
+        stockQuantity: item.quantity,
+        transactionDate: item.date,
+        transactionAmount: item.cost,
+      };
+      setTransactions((prev) => [...prev, transactionObject]);
+    });
+    stock!.buyToOpenOptions.forEach((item) => {
+      const transactionObject: TransactionView = {
+        ticker: ticker!,
+        transactionName: "Buy To Open",
+        transactionType: "option",
+        optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+        transactionDate: item.transactionDate,
+        transactionAmount: item.premium,
+      };
+      setTransactions((prev) => [...prev, transactionObject]);
+    });
+    stock!.buyToCloseOptions.forEach((item) => {
+      const transactionObject: TransactionView = {
+        ticker: ticker!,
+        transactionName: "Buy To Close",
+        transactionType: "option",
+        optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+        transactionDate: item.transactionDate,
+        transactionAmount: item.premium,
+      };
+      setTransactions((prev) => [...prev, transactionObject]);
+    });
+    stock!.sellToOpenOptions.forEach((item) => {
+      const transactionObject: TransactionView = {
+        ticker: ticker!,
+        transactionName: "Sell To Open",
+        transactionType: "option",
+        optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+        transactionDate: item.transactionDate,
+        transactionAmount: item.premium,
+      };
+      setTransactions((prev) => [...prev, transactionObject]);
+    });
+    stock!.sellToCloseOptions.forEach((item) => {
+      const transactionObject: TransactionView = {
+        ticker: ticker!,
+        transactionName: "Sell To Close",
+        transactionType: "option",
+        optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+        transactionDate: item.transactionDate,
+        transactionAmount: item.premium,
+      };
+      setTransactions((prev) => [...prev, transactionObject]);
+    });
+    stock!.dividends.forEach((item) => {
+      const transactionObject: TransactionView = {
+        ticker: ticker!,
+        transactionName: "Dividend",
+        transactionType: "dividend",
+        transactionDate: item.date,
+        transactionAmount: item.amount,
+      };
+      setTransactions((prev) => [...prev, transactionObject]);
+    });
+  }, []);
 
   return (
     <main className="StockHistory">
@@ -183,20 +127,21 @@ const StockHistory = () => {
         <label htmlFor="dividend">Dividends</label>
       </form>
       <ul>
-        {Object.keys(yearlyReport).map((item, index) => (
-          <StockYearlyHistory
-            key={index}
-            year={item}
-            buySell={checkBuySell}
-            option={checkOption}
-            dividend={checkDividend}
-            transactions={yearlyReport[item].sort(
-              (a, b) =>
-                new Date(a.transactionDate).valueOf() -
-                new Date(b.transactionDate).valueOf()
-            )}
-          />
-        ))}
+        {transactions
+          .sort(
+            (a, b) =>
+              new Date(b.transactionDate).valueOf() -
+              new Date(a.transactionDate).valueOf()
+          )
+          .map((transaction, index) => (
+            <StockHistoryItem
+              key={index}
+              transaction={transaction}
+              buySell={checkBuySell}
+              option={checkOption}
+              dividend={checkDividend}
+            />
+          ))}
       </ul>
     </main>
   );

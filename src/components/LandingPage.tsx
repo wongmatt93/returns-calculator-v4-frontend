@@ -8,7 +8,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    user && navigate("/overview");
+    user && navigate("/home");
   }, [user]);
 
   return <div className="LandingPage">LandingPage works</div>;
