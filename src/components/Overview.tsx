@@ -1,7 +1,7 @@
-import AddStockForm from "./AddStockForm";
+import AddStockForm from "./Forms/AddStockForm";
 import "./Overview.css";
-import StockTable from "./StockTable";
-import Totals from "./Totals";
+import StockTable from "./Tables/StockTable";
+import Totals from "./Tables/Totals";
 
 const Overview = () => {
   return (

@@ -1,6 +1,6 @@
-import OptionTableDisplay from "../models/OptionTableDisplay";
-import { formatMoney } from "../services/formatFunctions";
-import AddCloseOptionsForm from "./AddCloseOptionsForm";
+import OptionTableDisplay from "../../models/OptionTableDisplay";
+import { formatMoney } from "../../services/formatFunctions";
+import AddCloseOptionsForm from "../Forms/AddCloseOptionsForm";
 import "./OpenOptionRow.css";
 
 interface Props {

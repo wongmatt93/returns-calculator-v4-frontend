@@ -1,9 +1,9 @@
 import axios from "axios";
-import AlphaAdvantageResponse from "../models/AlphaAdvantageResponse";
+import AlphaVantageResponse from "../models/AlphaVantageResponse";
 
 const key: string = process.env.REACT_APP_ALPHA_ADVANTAGE_API_KEY || "";
 
-const getStockInfo = (ticker: string): Promise<AlphaAdvantageResponse> =>
+const getStockInfo = (ticker: string): Promise<AlphaVantageResponse> =>
   axios
     .get("https://www.alphavantage.co/query", {
       params: { function: "OVERVIEW", symbol: ticker, apikey: key },

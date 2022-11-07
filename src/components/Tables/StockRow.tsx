@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import Stock from "../models/Stock";
-import { formatMoney, formatPercent } from "../services/formatFunctions";
+import Stock from "../../models/Stock";
+import { formatMoney } from "../../services/formatFunctions";
 import {
-  getOptionsTotalPremium,
   getPercentReturn,
   getTotalCostBasis,
   getTotalProfit,
-} from "../services/stockFunctions";
+} from "../../services/stockFunctions";
 import "./StockRow.css";
 
 interface Props {

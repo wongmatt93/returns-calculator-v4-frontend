@@ -1,7 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "../context/AuthContext";
-import { formatMoney, formatPercent } from "../services/formatFunctions";
-import { getTotalCostBasis, getTotalProfit } from "../services/stockFunctions";
+import AuthContext from "../../context/AuthContext";
+import { formatMoney, formatPercent } from "../../services/formatFunctions";
+import {
+  getTotalCostBasis,
+  getTotalProfit,
+} from "../../services/stockFunctions";
 import "./Totals.css";
 
 const Totals = () => {

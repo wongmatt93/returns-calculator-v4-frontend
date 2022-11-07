@@ -1,4 +1,4 @@
-export default interface AlphaAdvantageResponse {
+export default interface AlphaVantageResponse {
   Symbol: string;
   Name: string;
   Sector: string;

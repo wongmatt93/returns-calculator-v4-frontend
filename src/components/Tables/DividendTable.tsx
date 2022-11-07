@@ -1,4 +1,4 @@
-import Dividend from "../models/Dividend";
+import Dividend from "../../models/Dividend";
 import DividendRow from "./DividendRow";
 import "./DividendTable.css";
 

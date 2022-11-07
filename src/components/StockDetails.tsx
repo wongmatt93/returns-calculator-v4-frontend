@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import AlphaAdvantageResponse from "../models/AlphaAdvantageResponse";
+import AlphaVantageResponse from "../models/AlphaVantageResponse";
 import Stock from "../models/Stock";
-import { getStockInfo } from "../services/alphaAdvantageService";
+import { getStockInfo } from "../services/alphaVantageService";
 import { formatMoney } from "../services/formatFunctions";
 import {
   getOpenOptions,
@@ -11,21 +11,24 @@ import {
   getTotalCredits,
   getTotalDebits,
 } from "../services/stockFunctions";
-import AddDividendForm from "./AddDividendForm";
-import AddOpenOptionsForm from "./AddOpenOptionsForm";
-import BuySharesForm from "./BuySharesForm";
-import DividendTable from "./DividendTable";
-import OpenOptionsTable from "./OpenOptionsTable";
-import SellSharesForm from "./SellSharesForm";
+import AddDividendForm from "./Forms/AddDividendForm";
+import AddOpenOptionsForm from "./Forms/AddOpenOptionsForm";
+import BuySharesForm from "./Forms/BuySharesForm";
+import DividendTable from "./Tables/DividendTable";
+import OpenOptionsTable from "./Tables/OpenOptionsTable";
+import SellSharesForm from "./Forms/SellSharesForm";
 import "./StockDetails.css";
 
 const StockDetails = () => {
+  const navigate = useNavigate();
   const { stocks } = useContext(AuthContext);
   const ticker: string | undefined = useParams().ticker;
   const [stock, setStock] = useState<Stock | undefined>(undefined);
-  const [stockInfo, setStockInfo] = useState<AlphaAdvantageResponse | null>(
-    null
-  );
+  const [stockInfo, setStockInfo] = useState<AlphaVantageResponse | null>(null);
+
+  const handleClick = (): void => {
+    navigate(`/stocks/${encodeURIComponent(ticker!)}/history`);
+  };
 
   useEffect(() => {
     if (ticker) {
@@ -41,6 +44,7 @@ const StockDetails = () => {
           <h2>
             {ticker}: {stockInfo.Name}
           </h2>
+          <button onClick={handleClick}>Stock History</button>
           <div className="button-container">
             <BuySharesForm ticker={ticker!} />
             <SellSharesForm stock={stock} />
