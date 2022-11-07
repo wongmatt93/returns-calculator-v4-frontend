@@ -20,8 +20,11 @@ const Header = () => {
       <Link to="/" style={{ textDecoration: "none" }}>
         <p>Home</p>
       </Link>
-      <Link to="/financials" style={{ textDecoration: "none" }}>
-        <p>Financials</p>
+      <Link to="/portfolio" style={{ textDecoration: "none" }}>
+        <p>Portfolio</p>
+      </Link>
+      <Link to="/history" style={{ textDecoration: "none" }}>
+        <p>History</p>
       </Link>
       {user ? (
         <button onClick={signOut}>Sign Out</button>
