@@ -1,5 +1,5 @@
-import Dividend from "../models/Dividend";
-import { formatMoney } from "../services/formatFunctions";
+import Dividend from "../../models/Dividend";
+import { formatMoney } from "../../services/formatFunctions";
 import "./DividendRow.css";
 
 interface Props {

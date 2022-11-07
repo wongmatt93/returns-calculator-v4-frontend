@@ -1,13 +1,13 @@
 import { FormEvent, useContext, useState } from "react";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "../../context/AuthContext";
 import Modal from "react-modal";
 import "./SellSharesForm.css";
-import Stock from "../models/Stock";
+import Stock from "../../models/Stock";
 import {
   getStockCostBasis,
   getSharesCommittedToOptions,
   getStockQuantity,
-} from "../services/stockFunctions";
+} from "../../services/stockFunctions";
 
 interface Props {
   stock: Stock;
