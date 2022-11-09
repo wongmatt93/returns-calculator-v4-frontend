@@ -7,7 +7,26 @@
 .StockTable th {
   background-color: #66635b;
   padding: 3px 10px;
-  width: 25%;
+}
+
+.StockTable .ticker-cell {
+  width: 12%;
+}
+
+.StockTable .options-cell {
+  width: 35%;
+}
+
+.StockTable .cost-basis-cell {
+  width: 20%;
+}
+
+.StockTable .cash-returns-cell {
+  width: 20%;
+}
+
+.StockTable .returns-cell {
+  width: 13%;
 }
 
 .StockTable td {

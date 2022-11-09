@@ -10,10 +10,11 @@ const StockTable = () => {
     <table className="StockTable">
       <thead>
         <tr>
-          <th>Ticker</th>
-          <th>Cost Basis</th>
-          <th>Cash Returns</th>
-          <th>% Return</th>
+          <th className="ticker-cell">Ticker</th>
+          <th className="options-cell">Open Options</th>
+          <th className="cost-basis-cell">Cost Basis</th>
+          <th className="cash-returns-cell">Cash Returns</th>
+          <th className="returns-cell">% Return</th>
         </tr>
       </thead>
       <tbody>
