@@ -10,7 +10,7 @@ const Header = () => {
 
   useEffect(() => {
     !user && navigate("/");
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <header className="Header">
@@ -22,6 +22,9 @@ const Header = () => {
       </Link>
       <Link to="/portfolio" style={{ textDecoration: "none" }}>
         <p>Portfolio</p>
+      </Link>
+      <Link to="/research" style={{ textDecoration: "none" }}>
+        <p>Research</p>
       </Link>
       <Link to="/history" style={{ textDecoration: "none" }}>
         <p>History</p>

@@ -1,4 +1,4 @@
-import TransactionView from "../models/TransactionView";
+import TransactionView from "../../models/TransactionView";
 import "./StockHistoryItem.css";
 
 interface Props {

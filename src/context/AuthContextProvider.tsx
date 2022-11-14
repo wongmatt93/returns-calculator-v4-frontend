@@ -1,7 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import { auth } from "../firebaseConfig";
 import AuthContext from "./AuthContext";
-import UserProfile from "../models/UserProfile";
 import {
   addNewBTC,
   addNewBTO,
@@ -23,6 +22,7 @@ import BuyToOpen from "../models/BuyToOpen";
 import SellToOpen from "../models/SellToOpen";
 import BuyToClose from "../models/BuyToClose";
 import SellToClose from "../models/SellToClose";
+import UserProfile from "../models/UserProfile";
 
 interface Props {
   children: ReactNode;
@@ -30,17 +30,11 @@ interface Props {
 
 const AuthContextProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
-  const [currentUserProfile, setCurrentUserProfile] = useState<
-    UserProfile | undefined
-  >(undefined);
   const [stocks, setStocks] = useState<Stock[]>([]);
 
   const getAndSetStocks = () => {
     getAllProfiles().then((response) => {
-      const profile: UserProfile | undefined = response.find(
-        (profile) => profile.uid === user!.uid
-      );
-      setStocks(profile!.stocks);
+      setStocks(response.find((profile) => profile.uid === user!.uid)!.stocks);
     });
   };
 
@@ -98,11 +92,8 @@ const AuthContextProvider = ({ children }: Props) => {
     return auth.onAuthStateChanged((newUser) => {
       setUser(newUser);
       getAllProfiles().then((response) => {
-        const found: UserProfile | undefined = response.find(
-          (profile) => profile.uid === newUser!.uid
-        );
+        const found = response.find((profile) => profile.uid === newUser!.uid);
         if (found) {
-          setCurrentUserProfile(found);
           setStocks(found.stocks);
         } else {
           const newUserProfile: UserProfile = {
@@ -113,9 +104,8 @@ const AuthContextProvider = ({ children }: Props) => {
             stocks: [],
           };
           addNewProfile(newUserProfile).then(() =>
-            setCurrentUserProfile(newUserProfile)
+            setStocks(newUserProfile.stocks)
           );
-          setStocks(newUserProfile.stocks);
         }
       });
     });
@@ -125,7 +115,6 @@ const AuthContextProvider = ({ children }: Props) => {
     <AuthContext.Provider
       value={{
         user,
-        currentUserProfile,
         stocks,
         addStock,
         buyShares,

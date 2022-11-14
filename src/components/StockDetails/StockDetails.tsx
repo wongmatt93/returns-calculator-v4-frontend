@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
-import AlphaVantageResponse from "../models/AlphaVantageResponse";
-import Stock from "../models/Stock";
-import { getStockInfo } from "../services/alphaVantageService";
-import { formatMoney } from "../services/formatFunctions";
+import AuthContext from "../../context/AuthContext";
+import AlphaVantageResponse from "../../models/AlphaVantageResponse";
+import Stock from "../../models/Stock";
+import { getStockInfo } from "../../services/alphaVantageService";
+import { formatMoney } from "../../services/formatFunctions";
 import {
   getOpenOptions,
   getStockQuantity,
   getTotalCredits,
   getTotalDebits,
-} from "../services/stockFunctions";
+} from "../../services/stockFunctions";
 import AddDividendForm from "./Forms/AddDividendForm";
 import AddOpenOptionsForm from "./Forms/AddOpenOptionsForm";
 import BuySharesForm from "./Forms/BuySharesForm";

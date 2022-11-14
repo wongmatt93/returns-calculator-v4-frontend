@@ -1,9 +1,9 @@
 import { FormEvent, useContext, useState } from "react";
-import Stock from "../../models/Stock";
+import Stock from "../../../models/Stock";
 import "./AddDividendForm.css";
 import Modal from "react-modal";
-import { getStockQuantity } from "../../services/stockFunctions";
-import AuthContext from "../../context/AuthContext";
+import { getStockQuantity } from "../../../services/stockFunctions";
+import AuthContext from "../../../context/AuthContext";
 
 Modal.setAppElement("#root");
 

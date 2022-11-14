@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
-import Stock from "../models/Stock";
-import TransactionView from "../models/TransactionView";
+import AuthContext from "../../context/AuthContext";
+import Stock from "../../models/Stock";
+import TransactionView from "../../models/TransactionView";
 import "./StockHistory.css";
 import StockHistoryItem from "./StockHistoryItem";
 
@@ -95,7 +95,7 @@ const StockHistory = () => {
       };
       setTransactions((prev) => [...prev, transactionObject]);
     });
-  }, []);
+  }, [stocks, ticker]);
 
   return (
     <main className="StockHistory">

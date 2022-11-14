@@ -1,6 +1,6 @@
 import axios from "axios";
 import AlphaVantageResponse from "../models/AlphaVantageResponse";
-import AVAutofillResponse from "../models/AVAutofillResponse";
+import AVNewsResponse from "../models/AVNewsResponse";
 
 const key: string = process.env.REACT_APP_ALPHA_ADVANTAGE_API_KEY || "";
 
@@ -13,11 +13,13 @@ export const getStockInfo = async (
     })
   ).data;
 
-export const getStockSearchAutofill = async (
-  keyword: string
-): Promise<AVAutofillResponse> =>
+export const getStockNews = async (ticker: string): Promise<AVNewsResponse> =>
   (
     await axios.get("https://www.alphavantage.co/query", {
-      params: { function: "SYMBOL_SEARCH", keywords: keyword, apikey: key },
+      params: {
+        function: "NEWS_SENTIMENT",
+        tickers: ticker,
+        apikey: key,
+      },
     })
   ).data;

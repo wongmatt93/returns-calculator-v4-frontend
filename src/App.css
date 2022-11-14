@@ -18,3 +18,7 @@ body {
   font-family: "Exo", sans-serif;
   width: 100vw;
 }
+
+main {
+  padding: 3% 5%;
+}

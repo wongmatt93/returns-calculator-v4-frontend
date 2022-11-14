@@ -1,12 +1,10 @@
-import AddStockForm from "./Forms/AddStockForm";
+import AddStockForm from "./AddStockForm";
 import "./PortfolioOverview.css";
-import StockTable from "./Tables/StockTable";
-import Totals from "./Tables/Totals";
+import StockTable from "./StockTable";
 
 const PortfolioOverview = () => {
   return (
     <main className="PortfolioOverview">
-      <Totals />
       <AddStockForm />
       <StockTable />
     </main>

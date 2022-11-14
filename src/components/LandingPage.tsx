@@ -9,7 +9,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     user && navigate("/home");
-  }, [user]);
+  }, [user, navigate]);
 
   return <div className="LandingPage">LandingPage works</div>;
 };
