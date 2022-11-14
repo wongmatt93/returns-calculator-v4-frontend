@@ -51,8 +51,8 @@ const StockRow = ({ stock }: Props) => {
           </div>
           {isHoveringBTO && openBTO.length > 0 && (
             <ul className="open-option-list">
-              {openBTO.map((option) => (
-                <li>
+              {openBTO.map((option, index) => (
+                <li key={index}>
                   {`${option.expirationDate} ${option.strike} ${option.callPut}`}
                 </li>
               ))}
@@ -69,8 +69,8 @@ const StockRow = ({ stock }: Props) => {
           </div>
           {isHoveringSTO && openSTO.length > 0 && (
             <ul className="open-option-list">
-              {openSTO.map((option) => (
-                <li>
+              {openSTO.map((option, index) => (
+                <li key={index}>
                   {`${option.expirationDate} ${option.strike} ${option.callPut}`}
                 </li>
               ))}

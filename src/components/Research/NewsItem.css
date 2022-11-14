@@ -1,0 +1,13 @@
+.NewsItem {
+  width: 200px;
+  margin: 2%;
+}
+
+.NewsItem a {
+  text-decoration: none;
+  color: black;
+}
+
+.NewsItem img {
+  width: 100%;
+}

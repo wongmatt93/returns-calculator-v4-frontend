@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "../context/AuthContext";
-import TransactionView from "../models/TransactionView";
+import AuthContext from "../../context/AuthContext";
+import TransactionView from "../../models/TransactionView";
 import "./FinancialHistory.css";
 import FinancialHistoryItem from "./FinancialHistoryItem";
 
@@ -95,7 +95,7 @@ const FinancialHistory = () => {
   }, [stocks]);
 
   return (
-    <div className="FinancialHistory">
+    <main className="FinancialHistory">
       <h2>Transactions History</h2>
       <ul>
         {transactions
@@ -118,7 +118,7 @@ const FinancialHistory = () => {
       >
         Next
       </button>
-    </div>
+    </main>
   );
 };
 

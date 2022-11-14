@@ -1,13 +1,13 @@
 import { FormEvent, useContext, useState } from "react";
 import Modal from "react-modal";
 import { useParams } from "react-router-dom";
-import AuthContext from "../../context/AuthContext";
-import BuyToClose from "../../models/BuyToClose";
-import BuyToOpen from "../../models/BuyToOpen";
-import OptionTableDisplay from "../../models/OptionTableDisplay";
-import SellToClose from "../../models/SellToClose";
-import SellToOpen from "../../models/SellToOpen";
-import Stock from "../../models/Stock";
+import AuthContext from "../../../context/AuthContext";
+import BuyToClose from "../../../models/BuyToClose";
+import BuyToOpen from "../../../models/BuyToOpen";
+import OptionTableDisplay from "../../../models/OptionTableDisplay";
+import SellToClose from "../../../models/SellToClose";
+import SellToOpen from "../../../models/SellToOpen";
+import Stock from "../../../models/Stock";
 import "./AddCloseOptionsForm.css";
 
 Modal.setAppElement("#root");
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const AddCloseOptionsForm = ({ optionDisplay }: Props) => {
-  const { user, currentUserProfile, addBTC, addSTC } = useContext(AuthContext);
+  const { user, stocks, addBTC, addSTC } = useContext(AuthContext);
   const ticker: string | undefined = useParams().ticker;
   const [quantity, setQuantity] = useState(0);
   const [premium, setPremium] = useState<string>("");
@@ -44,7 +44,7 @@ const AddCloseOptionsForm = ({ optionDisplay }: Props) => {
       };
       if (newOption.type === "BTC") {
         for (let i: number = 0; i < quantity; i++) {
-          const stock: Stock | undefined = currentUserProfile!.stocks.find(
+          const stock: Stock | undefined = stocks.find(
             (stock) => stock.ticker === ticker
           );
           const openOption: SellToOpen | undefined =
@@ -60,7 +60,7 @@ const AddCloseOptionsForm = ({ optionDisplay }: Props) => {
         }
       } else {
         for (let i: number = 0; i < quantity; i++) {
-          const stock: Stock | undefined = currentUserProfile!.stocks.find(
+          const stock: Stock | undefined = stocks.find(
             (stock) => stock.ticker === ticker
           );
           const openOption: BuyToOpen | undefined =

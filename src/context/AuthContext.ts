@@ -12,7 +12,6 @@ import UserProfile from "../models/UserProfile";
 
 export interface AuthContextModel {
   user: User | null; // null when not logged in
-  currentUserProfile: UserProfile | undefined;
   stocks: Stock[];
   addStock: (stock: Stock, uid: string) => void;
   buyShares: (uid: string, ticker: string, purchase: StockPurchase) => void;
@@ -31,7 +30,6 @@ export interface AuthContextModel {
 
 const defaultValue: AuthContextModel = {
   user: null,
-  currentUserProfile: undefined,
   stocks: [],
   addStock: () => {},
   buyShares: () => {},

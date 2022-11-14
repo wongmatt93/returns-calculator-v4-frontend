@@ -1,12 +1,12 @@
 import React, { FormEvent } from "react";
 import { useContext, useState } from "react";
 import Modal from "react-modal";
-import AuthContext from "../../context/AuthContext";
-import Stock from "../../models/Stock";
+import AuthContext from "../../../context/AuthContext";
+import Stock from "../../../models/Stock";
 import {
   getSharesCommittedToOptions,
   getStockQuantity,
-} from "../../services/stockFunctions";
+} from "../../../services/stockFunctions";
 import "./AddOpenOptionsForm.css";
 
 Modal.setAppElement("#root");

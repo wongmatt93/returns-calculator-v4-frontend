@@ -5,4 +5,25 @@ export default interface AlphaVantageResponse {
   Description: string;
   DividendPerShare: string;
   DividendYield: string;
+  DividendDate: string;
+  PERatio: string;
+  Beta: string;
+  "52WeekHigh": string;
+  "52WeekLow": string;
+  "200DayMovingAverage": string;
+  AnalystTargetPrice: string;
+  BookValue: string;
+  EPS: string;
+  GrossProfitTTM: string;
+  MarketCapitalization: string;
+  PriceToBookRatio: string;
+  PriceToSalesRatioTTM: string;
+  ProfitMargin: string;
+  QuarterlyEarningsGrowthYOY: string;
+  QuarterlyRevenueGrowthYOY: string;
+  ReturnOnAssetsTTM: string;
+  ReturnOnEquityTTM: string;
+  RevenuePerShareTTM: string;
+  RevenueTTM: string;
+  SharesOutstanding: string;
 }
