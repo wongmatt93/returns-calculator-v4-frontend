@@ -5,9 +5,9 @@ import {
   getTotalCostBasis,
   getTotalProfit,
 } from "../../services/stockFunctions";
-import "./Totals.css";
+import "./TotalsTable.css";
 
-const Totals = () => {
+const TotalsTable = () => {
   const { stocks } = useContext(AuthContext);
   const [costBasis, setCostBasis] = useState(0);
   const [cashReturn, setCashReturn] = useState(0);
@@ -28,7 +28,7 @@ const Totals = () => {
   }, [stocks]);
 
   return (
-    <table className="Totals">
+    <table className="TotalsTable">
       <caption>Totals</caption>
       <thead>
         <tr>
@@ -48,4 +48,4 @@ const Totals = () => {
   );
 };
 
-export default Totals;
+export default TotalsTable;

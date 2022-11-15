@@ -1,17 +1,17 @@
-.StockRow .ticker-cell:hover {
+.OpenStockRow .ticker-cell:hover {
   cursor: pointer;
 }
 
-.StockRow .open-option-cell {
+.OpenStockRow .open-option-cell {
   display: flex;
   justify-content: space-evenly;
 }
 
-.StockRow .open-options-container {
+.OpenStockRow .open-options-container {
   position: relative;
 }
 
-.StockRow .open-option {
+.OpenStockRow .open-option {
   height: 30px;
   width: 100px;
   border: 1px solid black;
@@ -22,9 +22,9 @@
   justify-content: center;
 }
 
-.StockRow .open-option-list {
+.OpenStockRow .open-option-list {
   position: absolute;
-  bottom: 35px;
+  bottom: 40px;
   right: -30px;
   width: 150px;
   z-index: 1;

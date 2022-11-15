@@ -3,19 +3,20 @@ import { useNavigate } from "react-router-dom";
 import BuyToOpen from "../../models/BuyToOpen";
 import SellToOpen from "../../models/SellToOpen";
 import Stock from "../../models/Stock";
-import { formatMoney } from "../../services/formatFunctions";
+import { formatMoney, formatPercent } from "../../services/formatFunctions";
 import {
   getPercentReturn,
   getTotalCostBasis,
   getTotalProfit,
 } from "../../services/stockFunctions";
-import "./StockRow.css";
+import "./OpenStockRow.css";
 
 interface Props {
   stock: Stock;
+  total: number;
 }
 
-const StockRow = ({ stock }: Props) => {
+const OpenStockRow = ({ stock, total }: Props) => {
   const navigate = useNavigate();
   const [openBTO, setOpenBTO] = useState<BuyToOpen[]>([]);
   const [openSTO, setOpenSTO] = useState<SellToOpen[]>([]);
@@ -36,7 +37,7 @@ const StockRow = ({ stock }: Props) => {
   }, [stock]);
 
   return (
-    <tr className="StockRow">
+    <tr className="OpenStockRow">
       <td onClick={() => handleClick()} className="ticker-cell">
         {stock.ticker}
       </td>
@@ -79,10 +80,11 @@ const StockRow = ({ stock }: Props) => {
         </div>
       </td>
       <td>{formatMoney(getTotalCostBasis(stock))}</td>
+      <td>{formatPercent(getTotalCostBasis(stock) / total)}</td>
       <td>{formatMoney(getTotalProfit(stock))}</td>
       <td>{getPercentReturn(stock)}</td>
     </tr>
   );
 };
 
-export default StockRow;
+export default OpenStockRow;

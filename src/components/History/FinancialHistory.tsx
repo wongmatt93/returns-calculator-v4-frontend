@@ -1,13 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import TransactionView from "../../models/TransactionView";
+import { formatMoney } from "../../services/formatFunctions";
 import "./FinancialHistory.css";
-import FinancialHistoryItem from "./FinancialHistoryItem";
+import FinancialHistoryTable from "./FinancialHistoryTable";
 
 const FinancialHistory = () => {
   const { stocks } = useContext(AuthContext);
   const [transactions, setTransactions] = useState<TransactionView[]>([]);
   const [topItem, setTopItem] = useState<number>(0);
+  const [search, setSearch] = useState("");
 
   const handlePrevClick = (): void => setTopItem(topItem - 10);
 
@@ -20,9 +22,9 @@ const FinancialHistory = () => {
           ticker: stock.ticker,
           transactionName: "Stock Purchase",
           transactionType: "buySell",
-          stockQuantity: item.quantity,
+          transactionDescription: `Purchased ${item.quantity} Shares`,
           transactionDate: item.date,
-          transactionAmount: item.cost,
+          transactionAmount: `-${formatMoney(item.cost)}`,
         };
         setTransactions((prev) => [...prev, transactionObject]);
       });
@@ -31,9 +33,9 @@ const FinancialHistory = () => {
           ticker: stock.ticker,
           transactionName: "Stock Sale",
           transactionType: "buySell",
-          stockQuantity: item.quantity,
+          transactionDescription: `Sold ${item.quantity} Shares`,
           transactionDate: item.date,
-          transactionAmount: item.cost,
+          transactionAmount: formatMoney(item.cost),
         };
         setTransactions((prev) => [...prev, transactionObject]);
       });
@@ -42,20 +44,11 @@ const FinancialHistory = () => {
           ticker: stock.ticker,
           transactionName: "Buy To Open",
           transactionType: "option",
-          optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+          transactionDescription: `${item.expirationDate} ${formatMoney(
+            item.strike
+          )} ${item.callPut}`,
           transactionDate: item.transactionDate,
-          transactionAmount: item.premium,
-        };
-        setTransactions((prev) => [...prev, transactionObject]);
-      });
-      stock.buyToCloseOptions.forEach((item) => {
-        const transactionObject: TransactionView = {
-          ticker: stock.ticker,
-          transactionName: "Buy To Close",
-          transactionType: "option",
-          optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
-          transactionDate: item.transactionDate,
-          transactionAmount: item.premium,
+          transactionAmount: `-${formatMoney(item.premium)}`,
         };
         setTransactions((prev) => [...prev, transactionObject]);
       });
@@ -64,9 +57,24 @@ const FinancialHistory = () => {
           ticker: stock.ticker,
           transactionName: "Sell To Open",
           transactionType: "option",
-          optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+          transactionDescription: `${item.expirationDate} ${formatMoney(
+            item.strike
+          )} ${item.callPut}`,
           transactionDate: item.transactionDate,
-          transactionAmount: item.premium,
+          transactionAmount: formatMoney(item.premium),
+        };
+        setTransactions((prev) => [...prev, transactionObject]);
+      });
+      stock.buyToCloseOptions.forEach((item) => {
+        const transactionObject: TransactionView = {
+          ticker: stock.ticker,
+          transactionName: "Buy To Close",
+          transactionType: "option",
+          transactionDescription: `${item.expirationDate} ${formatMoney(
+            item.strike
+          )} ${item.callPut}`,
+          transactionDate: item.transactionDate,
+          transactionAmount: `-${formatMoney(item.premium)}`,
         };
         setTransactions((prev) => [...prev, transactionObject]);
       });
@@ -75,9 +83,11 @@ const FinancialHistory = () => {
           ticker: stock.ticker,
           transactionName: "Sell To Close",
           transactionType: "option",
-          optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+          transactionDescription: `${item.expirationDate} ${formatMoney(
+            item.strike
+          )} ${item.callPut}`,
           transactionDate: item.transactionDate,
-          transactionAmount: item.premium,
+          transactionAmount: formatMoney(item.premium),
         };
         setTransactions((prev) => [...prev, transactionObject]);
       });
@@ -87,7 +97,7 @@ const FinancialHistory = () => {
           transactionName: "Dividend",
           transactionType: "dividend",
           transactionDate: item.date,
-          transactionAmount: item.amount,
+          transactionAmount: formatMoney(item.amount),
         };
         setTransactions((prev) => [...prev, transactionObject]);
       });
@@ -97,24 +107,25 @@ const FinancialHistory = () => {
   return (
     <main className="FinancialHistory">
       <h2>Transactions History</h2>
-      <ul>
-        {transactions
-          .sort(
-            (a, b) =>
-              new Date(b.transactionDate).valueOf() -
-              new Date(a.transactionDate).valueOf()
-          )
-          .slice(topItem, topItem + 10)
-          .map((transaction, index) => (
-            <FinancialHistoryItem key={index} transaction={transaction} />
-          ))}
-      </ul>
+      <input
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value.toUpperCase())}
+      />
+      <FinancialHistoryTable
+        search={search}
+        topItem={topItem}
+        transactions={transactions}
+      />
       <button onClick={handlePrevClick} disabled={topItem === 0}>
         Prev
       </button>
       <button
         onClick={handleNextClick}
-        disabled={topItem + 10 > transactions.length}
+        disabled={topItem + 20 > transactions.length}
       >
         Next
       </button>

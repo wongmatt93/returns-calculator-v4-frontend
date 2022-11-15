@@ -1,0 +1,40 @@
+.OpenStockTable {
+  text-align: center;
+  color: #d7ceb2;
+  table-layout: fixed;
+  width: 80%;
+}
+
+.OpenStockTable th {
+  background-color: #66635b;
+  padding: 3px 10px;
+}
+
+.OpenStockTable .ticker-cell {
+  width: 10%;
+}
+
+.OpenStockTable .options-cell {
+  width: 30%;
+}
+
+.OpenStockTable .cost-basis-cell {
+  width: 19%;
+}
+
+.OpenStockTable .percent-portfolio {
+  width: 12%;
+}
+
+.OpenStockTable .cost-basis-cell {
+  width: 19%;
+}
+
+.OpenStockTable .returns-cell {
+  width: 10%;
+}
+
+.OpenStockTable td {
+  background-color: #a59e8c;
+  padding: 10px;
+}
