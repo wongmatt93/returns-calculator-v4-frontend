@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import Stock from "../../models/Stock";
 import TransactionView from "../../models/TransactionView";
+import { formatMoney } from "../../services/formatFunctions";
 import "./StockHistory.css";
 import StockHistoryItem from "./StockHistoryItem";
 
@@ -24,9 +25,9 @@ const StockHistory = () => {
         ticker: ticker!,
         transactionName: "Stock Purchase",
         transactionType: "buySell",
-        stockQuantity: item.quantity,
+        transactionDescription: `Purchased ${item.quantity} Shares`,
         transactionDate: item.date,
-        transactionAmount: item.cost,
+        transactionAmount: formatMoney(item.cost),
       };
       setTransactions((prev) => [...prev, transactionObject]);
     });
@@ -35,9 +36,9 @@ const StockHistory = () => {
         ticker: ticker!,
         transactionName: "Stock Sale",
         transactionType: "buySell",
-        stockQuantity: item.quantity,
+        transactionDescription: `Sold ${item.quantity} Shares`,
         transactionDate: item.date,
-        transactionAmount: item.cost,
+        transactionAmount: formatMoney(item.cost),
       };
       setTransactions((prev) => [...prev, transactionObject]);
     });
@@ -46,9 +47,9 @@ const StockHistory = () => {
         ticker: ticker!,
         transactionName: "Buy To Open",
         transactionType: "option",
-        optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+        transactionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
         transactionDate: item.transactionDate,
-        transactionAmount: item.premium,
+        transactionAmount: formatMoney(item.premium),
       };
       setTransactions((prev) => [...prev, transactionObject]);
     });
@@ -57,9 +58,9 @@ const StockHistory = () => {
         ticker: ticker!,
         transactionName: "Buy To Close",
         transactionType: "option",
-        optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+        transactionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
         transactionDate: item.transactionDate,
-        transactionAmount: item.premium,
+        transactionAmount: formatMoney(item.premium),
       };
       setTransactions((prev) => [...prev, transactionObject]);
     });
@@ -68,9 +69,9 @@ const StockHistory = () => {
         ticker: ticker!,
         transactionName: "Sell To Open",
         transactionType: "option",
-        optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+        transactionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
         transactionDate: item.transactionDate,
-        transactionAmount: item.premium,
+        transactionAmount: formatMoney(item.premium),
       };
       setTransactions((prev) => [...prev, transactionObject]);
     });
@@ -79,9 +80,9 @@ const StockHistory = () => {
         ticker: ticker!,
         transactionName: "Sell To Close",
         transactionType: "option",
-        optionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
+        transactionDescription: `${item.expirationDate} ${item.strike} ${item.callPut}`,
         transactionDate: item.transactionDate,
-        transactionAmount: item.premium,
+        transactionAmount: formatMoney(item.premium),
       };
       setTransactions((prev) => [...prev, transactionObject]);
     });
@@ -91,7 +92,7 @@ const StockHistory = () => {
         transactionName: "Dividend",
         transactionType: "dividend",
         transactionDate: item.date,
-        transactionAmount: item.amount,
+        transactionAmount: formatMoney(item.amount),
       };
       setTransactions((prev) => [...prev, transactionObject]);
     });

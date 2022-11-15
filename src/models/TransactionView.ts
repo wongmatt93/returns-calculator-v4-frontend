@@ -3,7 +3,7 @@ export default interface TransactionView {
   transactionType: string;
   transactionName: string;
   stockQuantity?: number;
-  optionDescription?: string;
+  transactionDescription?: string;
   transactionDate: string;
-  transactionAmount: number;
+  transactionAmount: string;
 }

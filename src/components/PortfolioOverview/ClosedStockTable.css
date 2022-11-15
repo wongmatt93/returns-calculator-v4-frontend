@@ -1,0 +1,16 @@
+.ClosedStockTable {
+  text-align: center;
+  color: #d7ceb2;
+  table-layout: fixed;
+  width: 20%;
+}
+
+.ClosedStockTable th {
+  background-color: #a59e8c;
+  padding: 3px 10px;
+}
+
+.ClosedStockTable td {
+  background-color: #66635b;
+  padding: 10px;
+}

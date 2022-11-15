@@ -1,14 +1,14 @@
-.Totals {
+.TotalsTable {
   text-align: center;
   color: #d7ceb2;
 }
 
-.Totals th {
+.TotalsTable th {
   background-color: #66635b;
   padding: 3px 10px;
 }
 
-.Totals td {
+.TotalsTable td {
   background-color: #a59e8c;
   padding: 10px;
   width: 33%;

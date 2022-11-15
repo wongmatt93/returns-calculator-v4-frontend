@@ -1,6 +1,7 @@
 .NewsItem {
-  width: 200px;
-  margin: 2%;
+  width: 30%;
+  flex-shrink: 0;
+  margin: 0 2%;
 }
 
 .NewsItem a {

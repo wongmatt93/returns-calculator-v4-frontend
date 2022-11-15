@@ -1,10 +1,10 @@
 import "./Homepage.css";
-import Totals from "./Totals";
+import TotalsTable from "./TotalsTable";
 
 const Homepage = () => {
   return (
     <main className="Homepage">
-      <Totals />
+      <TotalsTable />
     </main>
   );
 };

@@ -27,7 +27,9 @@ const StockHistoryItem = ({
       }}
     >
       <h4>{transaction.transactionName}</h4>
-      {transaction.optionDescription && <p>{transaction.optionDescription}</p>}
+      {transaction.transactionDescription && (
+        <p>{transaction.transactionDescription}</p>
+      )}
       {transaction.stockQuantity && <p>{transaction.stockQuantity}</p>}
       <p>{transaction.transactionAmount}</p>
       <p>{transaction.transactionDate}</p>

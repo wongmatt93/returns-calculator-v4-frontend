@@ -1,0 +1,3 @@
+.ClosedStockRow .ticker-cell:hover {
+  cursor: pointer;
+}
