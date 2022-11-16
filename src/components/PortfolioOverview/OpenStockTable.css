@@ -11,7 +11,7 @@
 }
 
 .OpenStockTable .ticker-cell {
-  width: 10%;
+  width: 8%;
 }
 
 .OpenStockTable .options-cell {
@@ -23,7 +23,7 @@
 }
 
 .OpenStockTable .percent-portfolio {
-  width: 12%;
+  width: 14%;
 }
 
 .OpenStockTable .cost-basis-cell {

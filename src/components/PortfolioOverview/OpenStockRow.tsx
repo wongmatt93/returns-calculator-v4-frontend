@@ -43,40 +43,42 @@ const OpenStockRow = ({ stock, total }: Props) => {
       </td>
       <td className="open-option-cell">
         <div className="open-options-container">
-          <div
-            className="open-option open-bto"
-            onMouseOver={handleMouseOverBTO}
-            onMouseOut={handleMouseOutBTO}
-          >
-            BTO: {openBTO.length}
+          <div className="open-options-pill">
+            <div
+              className="open-option open-bto"
+              onMouseOver={handleMouseOverBTO}
+              onMouseOut={handleMouseOutBTO}
+            >
+              BTO: {openBTO.length}
+            </div>
+            {isHoveringBTO && openBTO.length > 0 && (
+              <ul className="open-option-list">
+                {openBTO.map((option, index) => (
+                  <li key={index}>
+                    {`${option.expirationDate} ${option.strike} ${option.callPut}`}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-          {isHoveringBTO && openBTO.length > 0 && (
-            <ul className="open-option-list">
-              {openBTO.map((option, index) => (
-                <li key={index}>
-                  {`${option.expirationDate} ${option.strike} ${option.callPut}`}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div className="open-options-container">
-          <div
-            className="open-option open-sto"
-            onMouseOver={handleMouseOverSTO}
-            onMouseOut={handleMouseOutSTO}
-          >
-            STO: {openSTO.length}
+          <div className="open-options-pill">
+            <div
+              className="open-option open-sto"
+              onMouseOver={handleMouseOverSTO}
+              onMouseOut={handleMouseOutSTO}
+            >
+              STO: {openSTO.length}
+            </div>
+            {isHoveringSTO && openSTO.length > 0 && (
+              <ul className="open-option-list">
+                {openSTO.map((option, index) => (
+                  <li key={index}>
+                    {`${option.expirationDate} ${option.strike} ${option.callPut}`}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-          {isHoveringSTO && openSTO.length > 0 && (
-            <ul className="open-option-list">
-              {openSTO.map((option, index) => (
-                <li key={index}>
-                  {`${option.expirationDate} ${option.strike} ${option.callPut}`}
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
       </td>
       <td>{formatMoney(getTotalCostBasis(stock))}</td>

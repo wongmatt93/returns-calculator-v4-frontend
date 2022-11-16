@@ -16,7 +16,6 @@ const FinancialHistoryTable = ({ search, topItem, transactions }: Props) => {
           <th>Date</th>
           <th>Ticker</th>
           <th>Transaction</th>
-          <th>Description</th>
           <th>Amount</th>
         </tr>
       </thead>
@@ -28,7 +27,7 @@ const FinancialHistoryTable = ({ search, topItem, transactions }: Props) => {
               new Date(b.transactionDate).valueOf() -
               new Date(a.transactionDate).valueOf()
           )
-          .slice(topItem, topItem + 20)
+          .slice(topItem, topItem + 10)
           .map((transaction, index) => (
             <FinancialHistoryRow key={index} transaction={transaction} />
           ))}

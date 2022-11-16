@@ -25,7 +25,7 @@ const ClosedStockTable = ({ closedPositions }: Props) => {
             .map((stock) => <ClosedStockRow stock={stock} key={stock.ticker} />)
         ) : (
           <tr>
-            <td colSpan={4}>No Stocks Added</td>
+            <td colSpan={2}>No Stocks Added</td>
           </tr>
         )}
       </tbody>
