@@ -32,7 +32,7 @@ const OpenStockTable = ({ openPositions, total }: Props) => {
             ))
         ) : (
           <tr>
-            <td colSpan={4}>No Stocks Added</td>
+            <td colSpan={6}>No Stocks Added</td>
           </tr>
         )}
       </tbody>

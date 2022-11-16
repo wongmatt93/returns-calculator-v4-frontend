@@ -16,6 +16,7 @@ const FinancialHistoryTable = ({ search, topItem, transactions }: Props) => {
           <th>Date</th>
           <th>Ticker</th>
           <th>Transaction</th>
+          <th>Description</th>
           <th>Amount</th>
         </tr>
       </thead>
