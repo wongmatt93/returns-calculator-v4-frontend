@@ -11,7 +11,24 @@ const LandingPage = () => {
     user && navigate("/home");
   }, [user, navigate]);
 
-  return <div className="LandingPage">LandingPage works</div>;
+  return (
+    <main className="LandingPage">
+      <section>
+        <h2>Show Me The Cash</h2>
+        <p>Introducing a new way to track your portfolio</p>
+      </section>
+      <section>
+        <h3>Mission</h3>
+        <p>
+          Providing a way for cash focused investors to easily keep track of
+          their returns. This app makes it easy to view the exact cash amounts
+          received from cash transactions from options and dividends so that you
+          can see how well each investment is performing for you.
+        </p>
+        <p>Sign in using Google to begin!</p>
+      </section>
+    </main>
+  );
 };
 
 export default LandingPage;
