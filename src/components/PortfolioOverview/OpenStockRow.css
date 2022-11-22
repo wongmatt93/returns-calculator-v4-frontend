@@ -1,5 +1,6 @@
 .OpenStockRow .ticker-cell:hover {
   cursor: pointer;
+  background-color: #66635b;
 }
 
 .OpenStockRow .open-options-container {

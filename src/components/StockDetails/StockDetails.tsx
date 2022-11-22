@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import AlphaVantageResponse from "../../models/AlphaVantageResponse";
 import Stock from "../../models/Stock";
@@ -20,15 +20,10 @@ import SellSharesForm from "./Forms/SellSharesForm";
 import "./StockDetails.css";
 
 const StockDetails = () => {
-  const navigate = useNavigate();
   const { stocks } = useContext(AuthContext);
   const ticker: string | undefined = useParams().ticker;
   const [stock, setStock] = useState<Stock | undefined>(undefined);
   const [stockInfo, setStockInfo] = useState<AlphaVantageResponse | null>(null);
-
-  const handleClick = (): void => {
-    navigate(`/stocks/${encodeURIComponent(ticker!)}/history`);
-  };
 
   useEffect(() => {
     if (ticker) {
@@ -44,7 +39,7 @@ const StockDetails = () => {
           <h2>
             {ticker}: {stockInfo.Name}
           </h2>
-          <button onClick={handleClick}>Stock History</button>
+          <Link to={`/history/${ticker}`}>Show History</Link>
           <div className="button-container">
             <BuySharesForm ticker={ticker!} />
             <SellSharesForm stock={stock} />

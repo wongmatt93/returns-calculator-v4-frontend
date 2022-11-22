@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import TransactionView from "../../models/TransactionView";
 import { formatMoney } from "../../services/formatFunctions";
@@ -7,9 +8,10 @@ import FinancialHistoryTable from "./FinancialHistoryTable";
 
 const FinancialHistory = () => {
   const { stocks } = useContext(AuthContext);
+  const ticker: string | undefined = useParams().ticker;
   const [transactions, setTransactions] = useState<TransactionView[]>([]);
   const [topItem, setTopItem] = useState<number>(0);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(ticker || "");
 
   const handlePrevClick = (): void => setTopItem(topItem - 10);
 

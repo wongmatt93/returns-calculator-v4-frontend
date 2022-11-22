@@ -7,6 +7,7 @@ interface Props {
 }
 
 const StockDetailsList = ({ stockInfo }: Props) => {
+  console.log(stockInfo);
   return (
     <section className="StockDetailsList">
       <h3>Details</h3>
@@ -19,8 +20,26 @@ const StockDetailsList = ({ stockInfo }: Props) => {
           </p>
         </li>
         <li>
-          <p>Gross Profit TTM</p>
-          <p>{formatMoney(parseFloat(stockInfo.GrossProfitTTM))}</p>
+          <p>Revenue TTM</p>
+          <p>{formatMoney(parseFloat(stockInfo.RevenueTTM))}</p>
+        </li>
+        <li>
+          <p>Total Dividends</p>
+          <p>
+            {formatMoney(
+              parseFloat(stockInfo.DividendPerShare) *
+                parseFloat(stockInfo.SharesOutstanding)
+            )}
+          </p>
+        </li>
+        <li>
+          <p>Net Income</p>
+          <p>
+            {formatMoney(
+              parseFloat(stockInfo.EPS) *
+                parseFloat(stockInfo.SharesOutstanding)
+            )}
+          </p>
         </li>
         <li>
           <p>Market Cap</p>
@@ -30,7 +49,8 @@ const StockDetailsList = ({ stockInfo }: Props) => {
           <p>Profit / Market Cap</p>
           <p>
             {formatPercent(
-              parseFloat(stockInfo.GrossProfitTTM) /
+              (parseFloat(stockInfo.EPS) *
+                parseFloat(stockInfo.SharesOutstanding)) /
                 parseFloat(stockInfo.MarketCapitalization)
             )}
           </p>

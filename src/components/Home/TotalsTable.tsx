@@ -29,7 +29,7 @@ const TotalsTable = () => {
 
   return (
     <table className="TotalsTable">
-      <caption>Totals</caption>
+      <caption>Overall Total</caption>
       <thead>
         <tr>
           <th>Cost Basis</th>
