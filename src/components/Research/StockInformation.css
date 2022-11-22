@@ -19,6 +19,10 @@
   width: 32%;
 }
 
+.StockInformation .stock-price {
+  font-size: 36px;
+}
+
 .StockInformation .dividend-section {
   background-color: #d7ceb2;
   padding: 2%;
@@ -30,6 +34,14 @@
 
 .StockInformation .dividend-info {
   display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.StockInformation .dividend-per-share,
+.StockInformation .dividend-yield,
+.StockInformation .dividend-date {
+  font-size: 24px;
 }
 
 .StockInformation .lower-section {

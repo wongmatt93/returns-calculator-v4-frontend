@@ -6,11 +6,30 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.Header .title {
+  flex: 1;
+}
+
 .Header h1 {
   color: #93a8ac;
   font-family: "Dosis", sans-serif;
 }
 
-.Header p {
+.Header nav {
+  flex: 2;
+}
+
+.Header nav ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Header li {
   color: #d8d4d5;
+}
+
+.Header .button-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }

@@ -22,7 +22,9 @@ const FinancialHistoryTable = ({ search, topItem, transactions }: Props) => {
       </thead>
       <tbody>
         {transactions
-          .filter((item) => item.ticker.includes(search))
+          .filter((item) =>
+            search ? item.ticker === search : item.ticker.includes(search)
+          )
           .sort(
             (a, b) =>
               new Date(b.transactionDate).valueOf() -

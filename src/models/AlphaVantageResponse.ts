@@ -14,6 +14,7 @@ export default interface AlphaVantageResponse {
   AnalystTargetPrice: string;
   BookValue: string;
   EPS: string;
+  EBITDA: string;
   GrossProfitTTM: string;
   MarketCapitalization: string;
   PriceToBookRatio: string;

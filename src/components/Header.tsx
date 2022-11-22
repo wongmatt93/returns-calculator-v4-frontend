@@ -14,26 +14,34 @@ const Header = () => {
 
   return (
     <header className="Header">
-      <Link to="/" style={{ textDecoration: "none" }}>
+      <Link to="/" style={{ textDecoration: "none" }} className="title">
         <h1>Returns Calculator</h1>
       </Link>
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <p>Home</p>
-      </Link>
-      <Link to="/portfolio" style={{ textDecoration: "none" }}>
-        <p>Portfolio</p>
-      </Link>
-      <Link to="/research" style={{ textDecoration: "none" }}>
-        <p>Research</p>
-      </Link>
-      <Link to="/history" style={{ textDecoration: "none" }}>
-        <p>History</p>
-      </Link>
-      {user ? (
-        <button onClick={signOut}>Sign Out</button>
-      ) : (
-        <button onClick={signInWithGoogle}>Sign In</button>
+      {user && (
+        <nav>
+          <ul>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <li>Home</li>
+            </Link>
+            <Link to="/portfolio" style={{ textDecoration: "none" }}>
+              <li>Portfolio</li>
+            </Link>
+            <Link to="/research" style={{ textDecoration: "none" }}>
+              <li>Research</li>
+            </Link>
+            <Link to="/history" style={{ textDecoration: "none" }}>
+              <li>History</li>
+            </Link>
+          </ul>
+        </nav>
       )}
+      <div className="button-container">
+        {user ? (
+          <button onClick={signOut}>Sign Out</button>
+        ) : (
+          <button onClick={signInWithGoogle}>Sign In</button>
+        )}
+      </div>
     </header>
   );
 };
