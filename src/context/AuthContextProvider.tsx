@@ -10,7 +10,7 @@ import {
   addNewSTO,
   addNewStock,
   buyNewShares,
-  getAllProfiles,
+  getProfileByUid,
   sellNewShares,
 } from "../services/userProfileService";
 import { User } from "firebase/auth";
@@ -32,44 +32,43 @@ const AuthContextProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [stocks, setStocks] = useState<Stock[]>([]);
 
-  const getAndSetStocks = () => {
-    getAllProfiles().then((response) => {
-      setStocks(response.find((profile) => profile.uid === user!.uid)!.stocks);
-    });
+  const getAndSetStocks = (uid: string) => {
+    getProfileByUid(uid).then((response) => setStocks(response!.stocks));
   };
 
   const addStock = (stock: Stock, uid: string): Promise<void> =>
-    addNewStock(stock, uid).then(() => getAndSetStocks());
+    addNewStock(stock, uid).then(() => getAndSetStocks(uid));
 
   const buyShares = (
     uid: string,
     ticker: string,
     purchase: StockPurchase
   ): Promise<void> =>
-    buyNewShares(uid, ticker, purchase).then(() => getAndSetStocks());
+    buyNewShares(uid, ticker, purchase).then(() => getAndSetStocks(uid));
 
   const sellShares = (
     uid: string,
     ticker: string,
     sale: StockSale
   ): Promise<void> =>
-    sellNewShares(uid, ticker, sale).then(() => getAndSetStocks());
+    sellNewShares(uid, ticker, sale).then(() => getAndSetStocks(uid));
 
   const addDividend = (
     uid: string,
     ticker: string,
     dividend: Dividend
   ): Promise<void> =>
-    addNewDividend(uid, ticker, dividend).then(() => getAndSetStocks());
+    addNewDividend(uid, ticker, dividend).then(() => getAndSetStocks(uid));
 
   const addBTO = (uid: string, ticker: string, bto: BuyToOpen): Promise<void> =>
-    addNewBTO(uid, ticker, bto).then(() => getAndSetStocks());
+    addNewBTO(uid, ticker, bto).then(() => getAndSetStocks(uid));
 
   const addSTO = (
     uid: string,
     ticker: string,
     sto: SellToOpen
-  ): Promise<void> => addNewSTO(uid, ticker, sto).then(() => getAndSetStocks());
+  ): Promise<void> =>
+    addNewSTO(uid, ticker, sto).then(() => getAndSetStocks(uid));
 
   const addBTC = (
     uid: string,
@@ -77,7 +76,7 @@ const AuthContextProvider = ({ children }: Props) => {
     btc: BuyToClose,
     index: number
   ): Promise<void> =>
-    addNewBTC(uid, ticker, btc, index).then(() => getAndSetStocks());
+    addNewBTC(uid, ticker, btc, index).then(() => getAndSetStocks(uid));
 
   const addSTC = (
     uid: string,
@@ -85,29 +84,29 @@ const AuthContextProvider = ({ children }: Props) => {
     stc: SellToClose,
     index: number
   ): Promise<void> =>
-    addNewSTC(uid, ticker, stc, index).then(() => getAndSetStocks());
+    addNewSTC(uid, ticker, stc, index).then(() => getAndSetStocks(uid));
 
   useEffect(() => {
     // useEffect to only register once at start
     return auth.onAuthStateChanged((newUser) => {
       setUser(newUser);
-      getAllProfiles().then((response) => {
-        const found = response.find((profile) => profile.uid === newUser!.uid);
-        if (found) {
-          setStocks(found.stocks);
-        } else {
-          const newUserProfile: UserProfile = {
-            name: newUser!.displayName,
-            email: newUser!.email,
-            photo: newUser!.photoURL,
-            uid: newUser!.uid,
-            stocks: [],
-          };
-          addNewProfile(newUserProfile).then(() =>
-            setStocks(newUserProfile.stocks)
-          );
-        }
-      });
+      newUser &&
+        getProfileByUid(newUser.uid).then((response) => {
+          if (response) {
+            setStocks(response.stocks);
+          } else {
+            const newUserProfile: UserProfile = {
+              name: newUser.displayName,
+              email: newUser.email,
+              photo: newUser.photoURL,
+              uid: newUser.uid,
+              stocks: [],
+            };
+            addNewProfile(newUserProfile).then(() =>
+              setStocks(newUserProfile.stocks)
+            );
+          }
+        });
     });
   }, []);
 
