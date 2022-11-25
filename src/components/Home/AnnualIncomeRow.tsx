@@ -26,16 +26,20 @@ const AnnualIncomeRow = ({ year, total, prevTotal, quarterlies }: Props) => {
       </td>
 
       {isHovering && (
-        <td className="quarterly-row-cell">
-          {Object.keys(quarterlies)
-            .filter((quarter) => quarter.includes(year))
-            .sort()
-            .map((item, index) => (
-              <tr key={index}>
-                <td>{item.split("").splice(4).join("")}</td>
-                <td>{formatMoney(quarterlies[item])}</td>
-              </tr>
-            ))}
+        <td>
+          <table className="quarterly-row-cell">
+            <tbody>
+              {Object.keys(quarterlies)
+                .filter((quarter) => quarter.includes(year))
+                .sort()
+                .map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.split("").splice(4).join("")}</td>
+                    <td>{formatMoney(quarterlies[item])}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </td>
       )}
 

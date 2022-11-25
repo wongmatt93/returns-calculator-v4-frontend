@@ -14,7 +14,9 @@ const baseURL: string = process.env.REACT_APP_API_URL || "";
 export const getAllProfiles = async (): Promise<UserProfile[]> =>
   (await axios.get(`${baseURL}/user_profiles`)).data;
 
-export const getProfileByUid = async (uid: string): Promise<UserProfile> =>
+export const getProfileByUid = async (
+  uid: string
+): Promise<UserProfile | null> =>
   (await axios.get(`${baseURL}/user_profiles/${uid}`)).data;
 
 export const addNewProfile = async (

@@ -21,43 +21,23 @@ const AnnualIncomeTable = () => {
   }>({});
   const [yearlyReport, setYearlyReport] = useState<{ [key: string]: any }>({});
 
-  const getQuarter = (date = new Date()): string => {
-    const quarter: string = Math.floor(date.getMonth() / 3 + 1).toString();
-    const year: string = date.getFullYear().toString();
-    return `${year} Q${quarter}`;
-  };
-  const getYear = (date = new Date()): string => {
-    const year: string = date.getFullYear().toString();
-    return year;
-  };
+  const getYear = (date = new Date()): string => date.getFullYear().toString();
+
+  const getQuarter = (date = new Date()): string =>
+    `${getYear(date)} Q${Math.floor(date.getMonth() / 3 + 1).toString()}`;
 
   useEffect(() => {
+    setBTOOptions([]);
+    setBTCOptions([]);
+    setSTOOptions([]);
+    setSTCOptions([]);
+    setDividends([]);
     stocks.forEach((stock) => {
-      setBTOOptions((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.buyToOpenOptions);
-        return newList;
-      });
-      setBTCOptions((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.buyToCloseOptions);
-        return newList;
-      });
-      setSTOOptions((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.sellToOpenOptions);
-        return newList;
-      });
-      setSTCOptions((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.sellToCloseOptions);
-        return newList;
-      });
-      setDividends((prev) => {
-        const newList = prev.slice(0);
-        newList.push(...stock.dividends);
-        return newList;
-      });
+      setBTOOptions((prev) => [...prev, ...stock.buyToOpenOptions]);
+      setBTCOptions((prev) => [...prev, ...stock.buyToCloseOptions]);
+      setSTOOptions((prev) => [...prev, ...stock.sellToOpenOptions]);
+      setSTCOptions((prev) => [...prev, ...stock.sellToCloseOptions]);
+      setDividends((prev) => [...prev, ...stock.dividends]);
     });
   }, [stocks]);
 
