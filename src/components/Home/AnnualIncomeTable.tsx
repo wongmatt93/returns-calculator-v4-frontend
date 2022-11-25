@@ -24,7 +24,9 @@ const AnnualIncomeTable = () => {
   const getYear = (date = new Date()): string => date.getFullYear().toString();
 
   const getQuarter = (date = new Date()): string =>
-    `${getYear(date)} Q${Math.floor(date.getMonth() / 3 + 1).toString()}`;
+    `${date.getFullYear().toString()} Q${Math.floor(
+      date.getMonth() / 3 + 1
+    ).toString()}`;
 
   useEffect(() => {
     setBTOOptions([]);
