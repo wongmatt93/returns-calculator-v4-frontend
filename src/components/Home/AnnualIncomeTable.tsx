@@ -47,82 +47,68 @@ const AnnualIncomeTable = () => {
     setQuarterlyReport(() => {
       const newObject: { [key: string]: any } = {};
       btoOptions.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.transactionDate))]) {
-          newObject[getQuarter(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getQuarter(new Date(item.transactionDate))] -= item.premium;
-        }
+        const date: string = getQuarter(new Date(item.transactionDate));
+        !newObject[date]
+          ? (newObject[date] = item.premium * -1)
+          : (newObject[date] -= item.premium);
       });
       btcOptions.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.transactionDate))]) {
-          newObject[getQuarter(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getQuarter(new Date(item.transactionDate))] -= item.premium;
-        }
+        const date: string = getQuarter(new Date(item.transactionDate));
+        !newObject[date]
+          ? (newObject[date] = item.premium * -1)
+          : (newObject[date] -= item.premium);
       });
       stoOptions.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.transactionDate))]) {
-          newObject[getQuarter(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getQuarter(new Date(item.transactionDate))] += item.premium;
-        }
+        const date: string = getQuarter(new Date(item.transactionDate));
+        !newObject[date]
+          ? (newObject[date] = item.premium)
+          : (newObject[date] += item.premium);
       });
       stcOptions.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.transactionDate))]) {
-          newObject[getQuarter(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getQuarter(new Date(item.transactionDate))] += item.premium;
-        }
+        const date: string = getQuarter(new Date(item.transactionDate));
+        !newObject[date]
+          ? (newObject[date] = item.premium)
+          : (newObject[date] += item.premium);
       });
       dividends.forEach((item) => {
-        if (!newObject[getQuarter(new Date(item.date))]) {
-          newObject[getQuarter(new Date(item.date))] = item.amount;
-        } else {
-          newObject[getQuarter(new Date(item.date))] += item.amount;
-        }
+        const date: string = getQuarter(new Date(item.date));
+        !newObject[date]
+          ? (newObject[date] = item.amount)
+          : (newObject[date] += item.amount);
       });
       return newObject;
     });
     setYearlyReport(() => {
       const newObject: { [key: string]: any } = {};
       btoOptions.forEach((item) => {
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getYear(new Date(item.transactionDate))] -= item.premium;
-        }
+        const date: string = getYear(new Date(item.transactionDate));
+        !newObject[date]
+          ? (newObject[date] = item.premium * -1)
+          : (newObject[date] -= item.premium);
       });
       btcOptions.forEach((item) => {
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] =
-            item.premium * -1;
-        } else {
-          newObject[getYear(new Date(item.transactionDate))] -= item.premium;
-        }
+        const date: string = getYear(new Date(item.transactionDate));
+        !newObject[date]
+          ? (newObject[date] = item.premium * -1)
+          : (newObject[date] -= item.premium);
       });
       stoOptions.forEach((item) => {
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getYear(new Date(item.transactionDate))] += item.premium;
-        }
+        const date: string = getYear(new Date(item.transactionDate));
+        !newObject[date]
+          ? (newObject[date] = item.premium)
+          : (newObject[date] += item.premium);
       });
       stcOptions.forEach((item) => {
-        if (!newObject[getYear(new Date(item.transactionDate))]) {
-          newObject[getYear(new Date(item.transactionDate))] = item.premium;
-        } else {
-          newObject[getYear(new Date(item.transactionDate))] += item.premium;
-        }
+        const date: string = getYear(new Date(item.transactionDate));
+        !newObject[date]
+          ? (newObject[date] = item.premium)
+          : (newObject[date] += item.premium);
       });
       dividends.forEach((item) => {
-        if (!newObject[getYear(new Date(item.date))]) {
-          newObject[getYear(new Date(item.date))] = item.amount;
-        } else {
-          newObject[getYear(new Date(item.date))] += item.amount;
-        }
+        const date: string = getYear(new Date(item.date));
+        !newObject[date]
+          ? (newObject[date] = item.amount)
+          : (newObject[date] += item.amount);
       });
       return newObject;
     });
