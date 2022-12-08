@@ -13,9 +13,8 @@ const FinancialHistory = () => {
   const [topItem, setTopItem] = useState<number>(0);
   const [search, setSearch] = useState(ticker || "");
 
-  const handlePrevClick = (): void => setTopItem(topItem - 10);
-
-  const handleNextClick = (): void => setTopItem(topItem + 10);
+  const handlePrevClick = (): void => setTopItem(topItem - 20);
+  const handleNextClick = (): void => setTopItem(topItem + 20);
 
   useEffect(() => {
     stocks.forEach((stock) => {
