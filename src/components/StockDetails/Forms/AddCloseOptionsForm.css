@@ -1,0 +1,33 @@
+.add-close-options-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.add-close-options-modal {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #d7ceb2;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  padding: 3em 0;
+  border-radius: 1em;
+}
+
+.add-close-options-modal form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-close-options-modal .add-close-options-inputs {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
