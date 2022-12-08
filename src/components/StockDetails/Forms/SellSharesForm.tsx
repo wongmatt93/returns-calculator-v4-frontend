@@ -63,7 +63,7 @@ const SellSharesForm = ({ stock }: Props) => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         className="sell-shares-modal"
-        overlayClassName="buy-shares-overlay"
+        overlayClassName="sell-shares-overlay"
       >
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="sell-shares-inputs">

@@ -32,6 +32,7 @@ const OpenOptionsTable = ({ openBTO, openSTO }: Props) => {
 
   return (
     <table className="OpenOptionsTable">
+      <caption>Open Options Positions</caption>
       <thead>
         <tr>
           <th>Type</th>
