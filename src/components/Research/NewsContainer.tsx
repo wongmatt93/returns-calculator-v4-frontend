@@ -1,4 +1,4 @@
-import NewsArticle from "../../models/NewsArticle";
+import { NewsArticle } from "../../models/AlphaVantage";
 import "./NewsContainer.css";
 import NewsItem from "./NewsItem";
 

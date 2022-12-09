@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BuyToOpen from "../../models/BuyToOpen";
-import SellToOpen from "../../models/SellToOpen";
-import Stock from "../../models/Stock";
+import Stock, { BuyToOpen, SellToOpen } from "../../models/Stock";
 import { formatMoney, formatPercent } from "../../services/formatFunctions";
 import {
   getPercentReturn,

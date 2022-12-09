@@ -14,14 +14,15 @@ import {
   sellNewShares,
 } from "../services/userProfileService";
 import { User } from "firebase/auth";
-import Stock from "../models/Stock";
-import StockPurchase from "../models/StockPurchase";
-import StockSale from "../models/StockSale";
-import Dividend from "../models/Dividend";
-import BuyToOpen from "../models/BuyToOpen";
-import SellToOpen from "../models/SellToOpen";
-import BuyToClose from "../models/BuyToClose";
-import SellToClose from "../models/SellToClose";
+import Stock, {
+  BuyToClose,
+  BuyToOpen,
+  Dividend,
+  SellToClose,
+  SellToOpen,
+  StockPurchase,
+  StockSale,
+} from "../models/Stock";
 import UserProfile from "../models/UserProfile";
 
 interface Props {

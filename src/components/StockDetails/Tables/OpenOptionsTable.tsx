@@ -1,6 +1,5 @@
-import BuyToOpen from "../../../models/BuyToOpen";
 import OptionTableDisplay from "../../../models/OptionTableDisplay";
-import SellToOpen from "../../../models/SellToOpen";
+import { BuyToOpen, SellToOpen } from "../../../models/Stock";
 import OpenOptionRow from "./OpenOptionRow";
 import "./OpenOptionsTable.css";
 

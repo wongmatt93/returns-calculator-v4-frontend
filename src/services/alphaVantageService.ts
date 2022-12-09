@@ -1,6 +1,5 @@
 import axios from "axios";
-import AlphaVantageResponse from "../models/AlphaVantageResponse";
-import AVNewsResponse from "../models/AVNewsResponse";
+import AlphaVantageResponse, { AVNewsResponse } from "../models/AlphaVantage";
 
 const key: string = process.env.REACT_APP_ALPHA_ADVANTAGE_API_KEY || "";
 

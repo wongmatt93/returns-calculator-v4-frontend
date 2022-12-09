@@ -1,10 +1,58 @@
-import StockPurchase from "./StockPurchase";
-import StockSale from "./StockSale";
-import Dividend from "./Dividend";
-import BuyToOpen from "./BuyToOpen";
-import SellToOpen from "./SellToOpen";
-import SellToClose from "./SellToClose";
-import BuyToClose from "./BuyToClose";
+export interface BuyToOpen {
+  type: string;
+  transactionDate: string;
+  callPut: string;
+  strike: number;
+  expirationDate: string;
+  premium: number;
+  open: boolean;
+}
+
+export interface BuyToClose {
+  type: string;
+  transactionDate: string;
+  callPut: string;
+  strike: number;
+  expirationDate: string;
+  premium: number;
+}
+
+export interface SellToOpen {
+  type: string;
+  transactionDate: string;
+  callPut: string;
+  strike: number;
+  expirationDate: string;
+  premium: number;
+  open: boolean;
+}
+
+export interface SellToClose {
+  type: string;
+  transactionDate: string;
+  callPut: string;
+  strike: number;
+  expirationDate: string;
+  premium: number;
+}
+
+export interface StockPurchase {
+  quantity: number;
+  cost: number;
+  date: string;
+}
+
+export interface StockSale {
+  quantity: number;
+  cost: number;
+  profit: number;
+  date: string;
+}
+
+export interface Dividend {
+  amount: number;
+  date: string;
+}
 
 export default interface Stock {
   ticker: string;
