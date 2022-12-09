@@ -1,4 +1,4 @@
-import Dividend from "../../../models/Dividend";
+import { Dividend } from "../../../models/Stock";
 import { formatMoney } from "../../../services/formatFunctions";
 import "./DividendRow.css";
 

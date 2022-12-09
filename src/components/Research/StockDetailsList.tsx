@@ -1,4 +1,4 @@
-import AlphaVantageResponse from "../../models/AlphaVantageResponse";
+import AlphaVantageResponse from "../../models/AlphaVantage";
 import { formatMoney, formatPercent } from "../../services/formatFunctions";
 import "./StockDetailsList.css";
 

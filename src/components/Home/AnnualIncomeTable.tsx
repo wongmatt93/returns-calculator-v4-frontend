@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
-import BuyToClose from "../../models/BuyToClose";
-import BuyToOpen from "../../models/BuyToOpen";
-import Dividend from "../../models/Dividend";
-import SellToClose from "../../models/SellToClose";
-import SellToOpen from "../../models/SellToOpen";
 import "./AnnualIncomeTable.css";
 import AnnualIncomeRow from "./AnnualIncomeRow";
+import {
+  BuyToClose,
+  BuyToOpen,
+  Dividend,
+  SellToClose,
+  SellToOpen,
+} from "../../models/Stock";
 
 const AnnualIncomeTable = () => {
   const { stocks } = useContext(AuthContext);

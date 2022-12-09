@@ -1,12 +1,18 @@
 import AnnualIncomeTable from "./AnnualIncomeTable";
 import "./Homepage.css";
 import TotalsTable from "./TotalsTable";
+import UpcomingOptionsExpirations from "./UpcomingOptionsExpirations";
 
 const Homepage = () => {
   return (
     <main className="Homepage">
-      <TotalsTable />
-      <AnnualIncomeTable />
+      <section>
+        <TotalsTable />
+        <AnnualIncomeTable />
+      </section>
+      <section>
+        <UpcomingOptionsExpirations />
+      </section>
     </main>
   );
 };

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
-import AlphaVantageResponse from "../../models/AlphaVantageResponse";
 import Stock from "../../models/Stock";
 import { getStockInfo } from "../../services/alphaVantageService";
 import { formatMoney } from "../../services/formatFunctions";
@@ -18,6 +17,7 @@ import OpenOptionsTable from "./Tables/OpenOptionsTable";
 import SellSharesForm from "./Forms/SellSharesForm";
 import "./StockDetails.css";
 import TransactionView from "../../models/TransactionView";
+import AlphaVantageResponse from "../../models/AlphaVantage";
 
 const StockDetails = () => {
   const { stocks } = useContext(AuthContext);

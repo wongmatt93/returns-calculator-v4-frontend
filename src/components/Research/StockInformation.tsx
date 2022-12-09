@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import AlphaVantageResponse from "../../models/AlphaVantageResponse";
-import NewsArticle from "../../models/NewsArticle";
+import AlphaVantageResponse, { NewsArticle } from "../../models/AlphaVantage";
 import { getStockInfo, getStockNews } from "../../services/alphaVantageService";
 import { formatMoney, formatPercent } from "../../services/formatFunctions";
 import NewsContainer from "./NewsContainer";

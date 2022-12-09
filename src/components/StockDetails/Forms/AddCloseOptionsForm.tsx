@@ -2,12 +2,13 @@ import { FormEvent, useContext, useState } from "react";
 import Modal from "react-modal";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../../context/AuthContext";
-import BuyToClose from "../../../models/BuyToClose";
-import BuyToOpen from "../../../models/BuyToOpen";
 import OptionTableDisplay from "../../../models/OptionTableDisplay";
-import SellToClose from "../../../models/SellToClose";
-import SellToOpen from "../../../models/SellToOpen";
-import Stock from "../../../models/Stock";
+import Stock, {
+  BuyToClose,
+  BuyToOpen,
+  SellToClose,
+  SellToOpen,
+} from "../../../models/Stock";
 import "./AddCloseOptionsForm.css";
 
 Modal.setAppElement("#root");

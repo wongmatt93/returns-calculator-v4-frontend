@@ -1,14 +1,14 @@
 import { User } from "firebase/auth";
 import { createContext } from "react";
-import BuyToClose from "../models/BuyToClose";
-import BuyToOpen from "../models/BuyToOpen";
-import Dividend from "../models/Dividend";
-import SellToClose from "../models/SellToClose";
-import SellToOpen from "../models/SellToOpen";
-import Stock from "../models/Stock";
-import StockPurchase from "../models/StockPurchase";
-import StockSale from "../models/StockSale";
-import UserProfile from "../models/UserProfile";
+import Stock, {
+  BuyToClose,
+  BuyToOpen,
+  Dividend,
+  SellToClose,
+  SellToOpen,
+  StockPurchase,
+  StockSale,
+} from "../models/Stock";
 
 export interface AuthContextModel {
   user: User | null; // null when not logged in

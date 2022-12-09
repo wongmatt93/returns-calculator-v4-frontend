@@ -6,4 +6,5 @@ export default interface TransactionView {
   transactionDescription?: string;
   transactionDate: string;
   transactionAmount: string;
+  optionExpiration?: string;
 }

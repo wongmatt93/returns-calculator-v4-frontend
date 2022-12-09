@@ -1,12 +1,13 @@
 import axios from "axios";
-import BuyToClose from "../models/BuyToClose";
-import BuyToOpen from "../models/BuyToOpen";
-import Dividend from "../models/Dividend";
-import SellToClose from "../models/SellToClose";
-import SellToOpen from "../models/SellToOpen";
-import Stock from "../models/Stock";
-import StockPurchase from "../models/StockPurchase";
-import StockSale from "../models/StockSale";
+import Stock, {
+  BuyToClose,
+  BuyToOpen,
+  Dividend,
+  SellToClose,
+  SellToOpen,
+  StockPurchase,
+  StockSale,
+} from "../models/Stock";
 import UserProfile from "../models/UserProfile";
 
 const baseURL: string = process.env.REACT_APP_API_URL || "";

@@ -1,8 +1,9 @@
-import BuyToClose from "../models/BuyToClose";
-import BuyToOpen from "../models/BuyToOpen";
-import SellToClose from "../models/SellToClose";
-import SellToOpen from "../models/SellToOpen";
-import Stock from "../models/Stock";
+import Stock, {
+  BuyToClose,
+  BuyToOpen,
+  SellToClose,
+  SellToOpen,
+} from "../models/Stock";
 import { formatPercent } from "./formatFunctions";
 
 const getPurchaseQuantity = (stock: Stock): number =>
