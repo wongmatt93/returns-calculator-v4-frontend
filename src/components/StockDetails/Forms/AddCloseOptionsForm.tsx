@@ -82,13 +82,14 @@ const AddCloseOptionsForm = ({ optionDisplay }: Props) => {
 
   return (
     <div className="AddCloseOptionsForm">
-      <button onClick={openModal}>Close Positions</button>
+      <button onClick={openModal}>Close</button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="add-close-options-modal"
+        className="add-close-options-modal animate__animated animate__fadeInUpBig animate__faster"
         overlayClassName="add-close-options-overlay"
       >
+        <h3>Close Options</h3>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="add-close-options-inputs">
             <label htmlFor="quantity">Quantity</label>

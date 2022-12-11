@@ -1,3 +1,46 @@
 .OpenOptionsTable {
   text-align: center;
+  margin-top: 3%;
+  width: 100%;
+  color: #d7ceb2;
+}
+
+.OpenOptionsTable th {
+  background-color: #66635b;
+  padding: 1%;
+  box-sizing: border-box;
+}
+
+.OpenOptionsTable td {
+  background-color: #a59e8c;
+  padding: 1%;
+  box-sizing: border-box;
+}
+
+.OpenOptionsTable .type-cell {
+  width: 20%;
+}
+.OpenOptionsTable .description-cell {
+  width: 30%;
+}
+.OpenOptionsTable .quantity-cell {
+  width: 25%;
+}
+.OpenOptionsTable .close-cell {
+  width: 25%;
+}
+
+@media only screen and (min-width: 768px) {
+  .OpenOptionsTable .type-cell {
+    width: 15%;
+  }
+  .OpenOptionsTable .description-cell {
+    width: 40%;
+  }
+  .OpenOptionsTable .quantity-cell {
+    width: 25%;
+  }
+  .OpenOptionsTable .close-cell {
+    width: 20%;
+  }
 }

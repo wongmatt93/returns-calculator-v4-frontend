@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import { signInWithGoogle } from "../firebaseConfig";
 import "./LandingPage.css";
 
 const LandingPage = () => {
@@ -26,6 +27,7 @@ const LandingPage = () => {
           can see how well each investment is performing for you.
         </p>
         <p>Sign in using Google to begin!</p>
+        <button onClick={signInWithGoogle}>Sign In</button>
       </section>
     </main>
   );

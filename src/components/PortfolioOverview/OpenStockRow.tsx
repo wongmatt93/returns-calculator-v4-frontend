@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Stock, { BuyToOpen, SellToOpen } from "../../models/Stock";
 import { formatMoney, formatPercent } from "../../services/formatFunctions";
 import {
-  getPercentReturn,
   getTotalCostBasis,
   getTotalProfit,
 } from "../../services/stockFunctions";
@@ -79,10 +78,15 @@ const OpenStockRow = ({ stock, total }: Props) => {
           </div>
         </div>
       </td>
-      <td>{formatMoney(getTotalCostBasis(stock))}</td>
-      <td>{formatPercent(getTotalCostBasis(stock) / total)}</td>
-      <td>{formatMoney(getTotalProfit(stock))}</td>
-      <td>{getPercentReturn(stock)}</td>
+      <td className="cost-basis-cell">
+        {formatMoney(getTotalCostBasis(stock))}
+      </td>
+      <td className="percent-portfolio">
+        {formatPercent(getTotalCostBasis(stock) / total)}
+      </td>
+      <td className="cash-returns-cell">
+        {formatMoney(getTotalProfit(stock))}
+      </td>
     </tr>
   );
 };

@@ -34,17 +34,22 @@ const OpenOptionsTable = ({ openBTO, openSTO }: Props) => {
       <caption>Open Options Positions</caption>
       <thead>
         <tr>
-          <th>Type</th>
-          <th>Option</th>
-          <th>Quantity</th>
-          <th>Close?</th>
+          <th className="type-cell">Type</th>
+          <th className="description-cell">Option</th>
+          <th className="quantity-cell">Quantity</th>
+          <th className="close-cell">Close?</th>
         </tr>
       </thead>
       <tbody>
-        {allOpenOptions.length &&
+        {allOpenOptions.length > 0 ? (
           optionsByQuantity.map((option, index) => (
             <OpenOptionRow option={option} key={index} />
-          ))}
+          ))
+        ) : (
+          <tr>
+            <td colSpan={4}>No Open Options</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

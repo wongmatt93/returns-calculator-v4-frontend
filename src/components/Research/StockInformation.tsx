@@ -47,19 +47,19 @@ const StockInformation = ({ ticker }: Props) => {
               <h3>Dividend Info</h3>
               <div className="dividend-info">
                 <div>
-                  <p>Dividend Per Share</p>
+                  <p>Dividend</p>
                   <p className="dividend-per-share">
                     {formatMoney(parseFloat(stockInfo.DividendPerShare) / 4)}
                   </p>
                 </div>
                 <div>
-                  <p>Dividend Yield</p>
+                  <p>Yield</p>
                   <p className="dividend-yield">
                     {formatPercent(parseFloat(stockInfo.DividendYield))}
                   </p>
                 </div>
                 <div>
-                  <p>Dividend Date</p>
+                  <p>Date</p>
                   <p className="dividend-date">{stockInfo.DividendDate}</p>
                 </div>
               </div>

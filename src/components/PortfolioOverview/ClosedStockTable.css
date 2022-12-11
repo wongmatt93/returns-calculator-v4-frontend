@@ -2,7 +2,7 @@
   text-align: center;
   color: #d7ceb2;
   table-layout: fixed;
-  width: 20%;
+  width: 100%;
 }
 
 .ClosedStockTable th {
@@ -13,4 +13,10 @@
 .ClosedStockTable td {
   background-color: #66635b;
   padding: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .ClosedStockTable {
+    flex: 1;
+  }
 }

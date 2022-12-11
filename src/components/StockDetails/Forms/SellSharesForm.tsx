@@ -62,9 +62,10 @@ const SellSharesForm = ({ stock }: Props) => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="sell-shares-modal"
+        className="sell-shares-modal animate__animated animate__fadeInUpBig animate__faster"
         overlayClassName="sell-shares-overlay"
       >
+        <h3>Sell Shares</h3>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="sell-shares-inputs">
             <label htmlFor="quantity">Quantity:</label>

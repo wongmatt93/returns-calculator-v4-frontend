@@ -6,11 +6,11 @@ import UpcomingOptionsExpirations from "./UpcomingOptionsExpirations";
 const Homepage = () => {
   return (
     <main className="Homepage">
-      <section>
+      <section className="homepage-tables">
         <TotalsTable />
         <AnnualIncomeTable />
       </section>
-      <section>
+      <section className="upcoming-expirations">
         <UpcomingOptionsExpirations />
       </section>
     </main>

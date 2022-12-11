@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import { signInWithGoogle, signOut } from "../firebaseConfig";
+import { signOut } from "../firebaseConfig";
 import "./Header.css";
 
 const Header = () => {
@@ -32,16 +32,12 @@ const Header = () => {
             <Link to="/history" style={{ textDecoration: "none" }}>
               <li>History</li>
             </Link>
+            <li>
+              <button onClick={signOut}>Sign Out</button>
+            </li>
           </ul>
         </nav>
       )}
-      <div className="button-container">
-        {user ? (
-          <button onClick={signOut}>Sign Out</button>
-        ) : (
-          <button onClick={signInWithGoogle}>Sign In</button>
-        )}
-      </div>
     </header>
   );
 };

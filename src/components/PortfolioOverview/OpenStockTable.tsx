@@ -18,7 +18,6 @@ const OpenStockTable = ({ openPositions, total }: Props) => {
           <th className="cost-basis-cell">Cost Basis</th>
           <th className="percent-portfolio">% of Portfolio</th>
           <th className="cash-returns-cell">Cash Returns</th>
-          <th className="returns-cell">% Return</th>
         </tr>
       </thead>
       <tbody>
