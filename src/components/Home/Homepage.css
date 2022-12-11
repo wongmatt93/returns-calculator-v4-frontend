@@ -1,4 +1,25 @@
 .Homepage {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Homepage .homepage-tables {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Homepage .upcoming-expirations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .Homepage {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
 }

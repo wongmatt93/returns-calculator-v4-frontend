@@ -1,0 +1,16 @@
+.IndividualStockTable {
+  width: 100%;
+  color: #d7ceb2;
+}
+
+.IndividualStockTable th {
+  background-color: #66635b;
+  padding: 1%;
+  box-sizing: border-box;
+}
+
+.IndividualStockTable td {
+  background-color: #a59e8c;
+  padding: 2%;
+  box-sizing: border-box;
+}

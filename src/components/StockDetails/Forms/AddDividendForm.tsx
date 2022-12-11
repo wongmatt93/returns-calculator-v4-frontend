@@ -41,9 +41,10 @@ const AddDividendForm = ({ stock }: Props) => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="add-dividend-modal"
+        className="add-dividend-modal animate__animated animate__fadeInUpBig animate__faster"
         overlayClassName="add-dividend-overlay"
       >
+        <h3>Add Dividends</h3>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="dividend-inputs">
             <label htmlFor="amount">Amount</label>

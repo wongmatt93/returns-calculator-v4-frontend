@@ -2,6 +2,7 @@ import "./BuySharesForm.css";
 import Modal from "react-modal";
 import { FormEvent, useContext, useState } from "react";
 import AuthContext from "../../../context/AuthContext";
+import "animate.css";
 
 Modal.setAppElement("#root");
 
@@ -35,9 +36,10 @@ const BuySharesForm = ({ ticker }: Props) => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="buy-shares-modal"
+        className="buy-shares-modal animate__animated animate__fadeInUpBig animate__faster"
         overlayClassName="buy-shares-overlay"
       >
+        <h3>Buy Shares</h3>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="buy-shares-inputs">
             <label htmlFor="quantity">Quantity:</label>

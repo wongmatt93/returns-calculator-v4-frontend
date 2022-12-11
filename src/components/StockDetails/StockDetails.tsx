@@ -4,12 +4,7 @@ import AuthContext from "../../context/AuthContext";
 import Stock from "../../models/Stock";
 import { getStockInfo } from "../../services/alphaVantageService";
 import { formatMoney } from "../../services/formatFunctions";
-import {
-  getOpenOptions,
-  getStockQuantity,
-  getTotalCredits,
-  getTotalDebits,
-} from "../../services/stockFunctions";
+import { getOpenOptions } from "../../services/stockFunctions";
 import AddDividendForm from "./Forms/AddDividendForm";
 import AddOpenOptionsForm from "./Forms/AddOpenOptionsForm";
 import BuySharesForm from "./Forms/BuySharesForm";
@@ -18,6 +13,9 @@ import SellSharesForm from "./Forms/SellSharesForm";
 import "./StockDetails.css";
 import TransactionView from "../../models/TransactionView";
 import AlphaVantageResponse from "../../models/AlphaVantage";
+import IndividualStockTable from "./Tables/IndividualStockTable";
+import CreditsTable from "./Tables/CreditsTable";
+import DebitsTable from "./Tables/DebitsTable";
 
 const StockDetails = () => {
   const { stocks } = useContext(AuthContext);
@@ -135,102 +133,21 @@ const StockDetails = () => {
           </h2>
           <div className="stock-details-body">
             <div className="current-stock-info">
-              {/* <Link to={`/history/${ticker}`}>Show History</Link> */}
               <div className="button-container">
                 <BuySharesForm ticker={ticker!} />
                 <SellSharesForm stock={stock} />
                 <AddOpenOptionsForm stock={stock} />
                 <AddDividendForm stock={stock} />
               </div>
-              <table className="individual-stock-table">
-                <caption>Current Stock Position</caption>
-                <thead>
-                  <tr>
-                    <th>Total Credits</th>
-                    <th>Total Debits</th>
-                    <th>Profit</th>
-                    <th>Break Even</th>
-                    <th># of Shares</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{formatMoney(getTotalCredits(stock))}</td>
-                    <td>{formatMoney(getTotalDebits(stock))}</td>
-                    <td>
-                      {formatMoney(
-                        getTotalCredits(stock) - getTotalDebits(stock)
-                      )}
-                    </td>
-                    <td>
-                      {getStockQuantity(stock)
-                        ? formatMoney(
-                            ((getTotalCredits(stock) - getTotalDebits(stock)) /
-                              getStockQuantity(stock)) *
-                              -1
-                          )
-                        : "N/A"}
-                    </td>
-                    <td>{getStockQuantity(stock)}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <IndividualStockTable stock={stock} />
               <OpenOptionsTable
                 openBTO={getOpenOptions(stock.buyToOpenOptions)}
                 openSTO={getOpenOptions(stock.sellToOpenOptions)}
               />
             </div>
             <div className="stock-details-history-tables">
-              <table>
-                <caption>Credits</caption>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Transaction</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {creditTransactions
-                    .sort(
-                      (a, b) =>
-                        new Date(b.transactionDate).valueOf() -
-                        new Date(a.transactionDate).valueOf()
-                    )
-                    .map((item) => (
-                      <tr>
-                        <td>{item.transactionDate}</td>
-                        <td>{item.transactionDescription}</td>
-                        <td>{item.transactionAmount}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-              <table>
-                <caption>Debits</caption>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Transaction</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {debitTransactions
-                    .sort(
-                      (a, b) =>
-                        new Date(b.transactionDate).valueOf() -
-                        new Date(a.transactionDate).valueOf()
-                    )
-                    .map((item) => (
-                      <tr>
-                        <td>{item.transactionDate}</td>
-                        <td>{item.transactionDescription}</td>
-                        <td>{item.transactionAmount}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+              <CreditsTable creditTransactions={creditTransactions} />
+              <DebitsTable debitTransactions={debitTransactions} />
             </div>
           </div>
         </>

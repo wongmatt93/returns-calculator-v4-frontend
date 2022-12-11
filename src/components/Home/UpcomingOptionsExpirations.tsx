@@ -69,12 +69,12 @@ const UpcomingOptionsExpirations = () => {
       <ul>
         {Object.keys(expirationDates)
           .sort()
-          .map((item) => (
-            <li>
+          .map((item, index) => (
+            <li key={index}>
               <h4>{item}</h4>
               <ul>
-                {expirationDates[item].map((item) => (
-                  <li>
+                {expirationDates[item].map((item, index) => (
+                  <li key={index}>
                     <p>{`${item.ticker} ${item.transactionDescription}`}</p>
                   </li>
                 ))}

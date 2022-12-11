@@ -80,9 +80,10 @@ const AddOpenOptionsForm = ({ stock }: Props) => {
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="add-open-options-modal"
+        className="add-open-options-modal animate__animated animate__fadeInUpBig animate__faster"
         overlayClassName="add-open-options-overlay"
       >
+        <h3>Add Open Options</h3>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="add-open-options-inputs">
             <label htmlFor="date">Transaction Date</label>

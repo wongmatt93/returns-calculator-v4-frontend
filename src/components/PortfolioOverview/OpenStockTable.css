@@ -2,7 +2,8 @@
   text-align: center;
   color: #d7ceb2;
   table-layout: fixed;
-  width: 80%;
+  width: 100%;
+  margin: 3% 0;
 }
 
 .OpenStockTable th {
@@ -11,30 +12,56 @@
 }
 
 .OpenStockTable .ticker-cell {
-  width: 8%;
+  width: 25%;
 }
 
 .OpenStockTable .options-cell {
-  width: 30%;
+  width: 75%;
 }
 
 .OpenStockTable .cost-basis-cell {
-  width: 19%;
+  display: none;
 }
 
 .OpenStockTable .percent-portfolio {
-  width: 14%;
+  display: none;
 }
 
-.OpenStockTable .cost-basis-cell {
-  width: 19%;
-}
-
-.OpenStockTable .returns-cell {
-  width: 10%;
+.OpenStockTable .cash-returns-cell {
+  display: none;
 }
 
 .OpenStockTable td {
   background-color: #a59e8c;
   padding: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .OpenStockTable {
+    margin: 0;
+    flex: 3;
+  }
+
+  .OpenStockTable .ticker-cell {
+    width: 10%;
+  }
+
+  .OpenStockTable .options-cell {
+    width: 30%;
+  }
+
+  .OpenStockTable .cost-basis-cell {
+    width: 20%;
+    display: table-cell;
+  }
+
+  .OpenStockTable .percent-portfolio {
+    width: 20%;
+    display: table-cell;
+  }
+
+  .OpenStockTable .cash-returns-cell {
+    width: 20%;
+    display: table-cell;
+  }
 }
